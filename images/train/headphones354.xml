@@ -1,0 +1,18 @@
+<annotation>
+    <folder>unlabeled</folder>
+    <filename>headphones354.jpg</filename>
+    <size>
+        <width>640</width>
+        <height>426</height>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>headphones</name>
+        <bndbox>
+            <xmin>1</xmin>
+            <ymin>51</ymin>
+            <xmax>524</xmax>
+            <ymax>297</ymax>
+        </bndbox>
+    </object>
+</annotation>
