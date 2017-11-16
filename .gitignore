@@ -1,0 +1,8 @@
+ssd_mobilenet_v1_coco_11_06_2017.tar.gz
+images/*.jpg
+images/**/.jpg
+images/**/.xml
+training/checkpoint
+training/events.out.tfevents.**
+model.**
+
