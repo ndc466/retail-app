@@ -273,11 +273,11 @@ proto_library(
     srcs = ["faster_rcnn.proto"],
     deps = [
         ":box_predictor_proto",
-        "//object_detection/protos:anchor_generator_proto",
-        "//object_detection/protos:hyperparams_proto",
-        "//object_detection/protos:image_resizer_proto",
-        "//object_detection/protos:losses_proto",
-        "//object_detection/protos:post_processing_proto",
+        "//rest_api/protos:anchor_generator_proto",
+        "//rest_api/protos:hyperparams_proto",
+        "//rest_api/protos:image_resizer_proto",
+        "//rest_api/protos:losses_proto",
+        "//rest_api/protos:post_processing_proto",
     ],
 )
 

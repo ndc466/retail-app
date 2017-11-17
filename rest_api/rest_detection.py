@@ -71,19 +71,9 @@ def load_image_into_numpy_array(image):
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
 PATH_TO_TEST_IMAGES_DIR = 'test_images'
-TEST_IMAGES = os.listdir('./test_images/')
-TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, TEST_IMAGES[i]) for i in range(3, 9) ]
-
-# Size, in inches, of the output images.
-IMAGE_SIZE = (12, 8)
-
-# For the sake of simplicity we will use only 2 images:
-# image1.jpg
-# image2.jpg
-# If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-PATH_TO_TEST_IMAGES_DIR = 'test_images'
-TEST_IMAGES = ['iphone_selfie.jpg', 'iphone_pic.jpg']
-TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, TEST_IMAGES[i]) for i in range(0, 2) ]
+TEST_IMAGES = os.listdir('./test_image/')
+#TEST_IMAGES = ['iphone_selfie.jpg', 'iphone_pic.jpg']
+TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, TEST_IMAGES[i]) for i in range(len(TEST_IMAGES)) ]
 
 # Size, in inches, of the output images.
 IMAGE_SIZE = (12, 8)

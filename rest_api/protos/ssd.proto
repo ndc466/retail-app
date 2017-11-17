@@ -1,15 +1,15 @@
 syntax = "proto2";
-package object_detection.protos;
+package rest_api.protos;
 
-import "object_detection/protos/anchor_generator.proto";
-import "object_detection/protos/box_coder.proto";
-import "object_detection/protos/box_predictor.proto";
-import "object_detection/protos/hyperparams.proto";
-import "object_detection/protos/image_resizer.proto";
-import "object_detection/protos/matcher.proto";
-import "object_detection/protos/losses.proto";
-import "object_detection/protos/post_processing.proto";
-import "object_detection/protos/region_similarity_calculator.proto";
+import "rest_api/protos/anchor_generator.proto";
+import "rest_api/protos/box_coder.proto";
+import "rest_api/protos/box_predictor.proto";
+import "rest_api/protos/hyperparams.proto";
+import "rest_api/protos/image_resizer.proto";
+import "rest_api/protos/matcher.proto";
+import "rest_api/protos/losses.proto";
+import "rest_api/protos/post_processing.proto";
+import "rest_api/protos/region_similarity_calculator.proto";
 
 // Configuration for Single Shot Detection (SSD) models.
 message Ssd {

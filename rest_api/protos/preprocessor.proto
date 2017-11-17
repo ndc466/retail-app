@@ -1,9 +1,9 @@
 syntax = "proto2";
 
-package object_detection.protos;
+package rest_api.protos;
 
 // Message for defining a preprocessing operation on input data.
-// See: //object_detection/core/preprocessor.py
+// See: //rest_api/core/preprocessor.py
 message PreprocessingStep {
   oneof preprocessing_step {
     NormalizeImage normalize_image = 1;
