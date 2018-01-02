@@ -1,4 +1,4 @@
-const chatServer = require('./lib/chat-server.js');
+const chatServer = require('./server/chat-server.js');
 
 function init(config, httpServer) {
 
