@@ -1,8 +1,13 @@
 from flask import Flask, request, jsonify, abort
-import hashlib
+import requests, hashlib, json
 
 app = Flask(__name__)
-#app.debug = True
+app.debug = True
+
+APPLICATION_JSON_UTF8 = 'application/json; charset=utf-8'
+SECRET_KEY = bytes('2mdkVeybquXB71Zgr3bqAzhVh61Lq6Yn', 'utf8')
+USER_ID = '5E11F1BA-6C84-49AA-B717-895DF595DB0F'
+BOT_URL = 'http://bots-connectors:8000/connectors/v1/tenants/chatbot-tenant/listeners/webhook/channels/5E11F1BA-6C84-49AA-B717-895DF595DB0F'
 
 @app.route('/hello', methods=['GET'])
 def hello():
@@ -10,22 +15,22 @@ def hello():
 
 @app.route('/receive', methods=['POST'])
 def receive():
-    if request.method == 'POST':
-        message = jsonify({
-            'data': request.form['message']
-        })
-        print message
-        return message
-    else:
-        abort(400)
+    data = request.data.decode('utf8')
+    print(data)
+    msg = json.loads(msg)
+    return(data)
 
 @app.route('/send', methods=['POST'])
 def send():
-    if request.method == 'POST':
-        print request.json
-        return '', 200
-    else:
-        abort(400)
+    msg = request.data
+    sha256 = hashlib.sha256(SECRET_KEY)
+    sha256.update(msg)
+    signature = 'sha256=' + sha256.hexdigest()
+    headers = {
+        'Content-Type': APPLICATION_JSON_UTF8,
+        'X-Hub-Signature': signature
+    }
+    r = requests.post(BOT_URL, data=msg, headers=headers)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8888)
+    app.run(host='0.0.0.0', port=8888, ssl_context='adhoc')
