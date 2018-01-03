@@ -32,7 +32,7 @@ def send():
         'X-Hub-Signature': signature
     }
     r = requests.post(BOT_URL, data=msg, headers=headers)
-    return r.
+    return r.text
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, ssl_context='adhoc')
