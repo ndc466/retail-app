@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, abort
-import requests, hashlib, json
+import requests, json, hashlib, hmac
 
 app = Flask(__name__)
 #app.debug = True
@@ -24,9 +24,9 @@ def receive():
 def send():
     msg = request.data
     print(msg)
-    sha256 = hashlib.sha256(SECRET_KEY)
-    sha256.update(msg)
-    signature = 'sha256=' + sha256.hexdigest()
+    code = hmac.new(SECRET_KEY, digestmod=hashlib.sha256)
+    code.update(msg)
+    signature = 'sha256=' + code.hexdigest()
     headers = {
         'Content-Type': APPLICATION_JSON_UTF8,
         'X-Hub-Signature': signature
