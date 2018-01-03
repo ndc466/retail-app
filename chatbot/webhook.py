@@ -18,7 +18,7 @@ def receive():
     data = request.data.decode('utf8')
     print(data)
     msg = json.loads(msg)
-    return(data)
+    return data
 
 @app.route('/send', methods=['POST'])
 def send():
