@@ -1,0 +1,80 @@
+
+  [
+    {
+      "id": "bot-101",
+      "name": "pizza",
+      "status": "ON",
+      "firstName": "Pizza",
+      "lastName": "Bot",
+      "description": "Bla bla bla",
+      "locationId": "loc-1",
+      "mobile": "6505067000",
+      "home": "5105552121",
+      "email": "pizzabot-cus-101@oracle.com",
+      "role": "Customer",
+      "address": {
+        "id": "loc-1",
+        "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+        "street1": "100 Main Street",
+        "street2": "",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94135",
+        "country": "USA",
+        "latitude": "37.791826",
+        "longitude": "-122.394953"
+      }
+    },
+        {
+          "id": "bot-102",
+          "name": "test",
+          "status": "ON",
+          "firstName": "Test",
+          "lastName": "Bot",
+          "description": "Bla bla bla",
+          "locationId": "loc-1",
+          "mobile": "6505067000",
+          "home": "5105552121",
+          "email": "test-bot-102@oracle.com",
+          "role": "Customer",
+          "address": {
+            "id": "loc-1",
+            "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+            "street1": "100 Main Street",
+            "street2": "",
+            "city": "San Francisco",
+            "state": "CA",
+            "zip": "94135",
+            "country": "USA",
+            "latitude": "37.791826",
+            "longitude": "-122.394953"
+          }
+        },
+            {
+              "id": "bot-103",
+              "name": "Chat",
+              "status": "OFF",
+              "firstName": "Chat",
+              "description": "Bla bla bla",
+              "lastName": "Bot",
+              "locationId": "loc-1",
+              "mobile": "6505067000",
+              "home": "5105552121",
+              "email": "chat-bot-103@oracle.com",
+              "role": "Customer",
+              "address": {
+                "id": "loc-1",
+                "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+                "street1": "100 Main Street",
+                "street2": "",
+                "city": "San Francisco",
+                "state": "CA",
+                "zip": "94135",
+                "country": "USA",
+                "latitude": "37.791826",
+                "longitude": "-122.394953"
+              }
+            }
+  ]
+
+

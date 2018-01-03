@@ -1,0 +1,125 @@
+
+  [
+    {
+      "id": "bot-101",
+      "name": "pizza",
+      "status": "ON",
+      "firstName": "Pizza",
+      "lastName": "Bot",
+      "locationId": "loc-1",
+      "mobile": "6505067000",
+      "home": "5105552121",
+      "email": "pizzabot-cus-101@oracle.com",
+      "role": "Customer",
+      "address": {
+        "id": "loc-1",
+        "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+        "street1": "100 Main Street",
+        "street2": "",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94135",
+        "country": "USA",
+        "latitude": "37.791826",
+        "longitude": "-122.394953"
+      }
+    },
+        {
+          "id": "bot-102",
+          "name": "test",
+          "status": "ON",
+          "firstName": "Test",
+          "lastName": "Bot",
+          "locationId": "loc-1",
+          "mobile": "6505067000",
+          "home": "5105552121",
+          "email": "test-bot-102@oracle.com",
+          "role": "Customer",
+          "address": {
+            "id": "loc-1",
+            "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+            "street1": "100 Main Street",
+            "street2": "",
+            "city": "San Francisco",
+            "state": "CA",
+            "zip": "94135",
+            "country": "USA",
+            "latitude": "37.791826",
+            "longitude": "-122.394953"
+          }
+        },
+            {
+              "id": "bot-103",
+              "name": "Chat",
+              "status": "OFF",
+              "firstName": "Chat",
+              "lastName": "Bot",
+              "locationId": "loc-1",
+              "mobile": "6505067000",
+              "home": "5105552121",
+              "email": "chat-bot-103@oracle.com",
+              "role": "Customer",
+              "address": {
+                "id": "loc-1",
+                "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+                "street1": "100 Main Street",
+                "street2": "",
+                "city": "San Francisco",
+                "state": "CA",
+                "zip": "94135",
+                "country": "USA",
+                "latitude": "37.791826",
+                "longitude": "-122.394953"
+              }
+           },
+              {
+                "id": "bot-1034",
+                "name": "MARKETING",
+                "status": "OFF",
+                "firstName": "Marketing",
+                "lastName": "Team",
+                "locationId": "loc-1",
+                "mobile": "6505067000",
+                "home": "5105552121",
+                "email": "marketing.team@oracle.com",
+                "role": "Customer",
+                "address": {
+                  "id": "loc-1",
+                  "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+                  "street1": "100 Main Street",
+                  "street2": "",
+                  "city": "San Francisco",
+                  "state": "CA",
+                  "zip": "94135",
+                  "country": "USA",
+                  "latitude": "37.791826",
+                  "longitude": "-122.394953"
+              }
+            },
+              {
+                  "id": "bot-1024",
+                  "name": "ZOOM",
+                  "status": "OFF",
+                  "firstName": "Development & QA status",
+                  "lastName": "Team",
+                  "locationId": "loc-1",
+                  "mobile": "6505067000",
+                  "home": "5105552121",
+                  "email": "zoom.meetings@oracle.com",
+                  "role": "Customer",
+                  "address": {
+                    "id": "loc-1",
+                    "formattedAddress": "100 Main Street,\nSan Francisco, CA 94135 USA",
+                    "street1": "100 Main Street",
+                    "street2": "",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "zip": "94135",
+                    "country": "USA",
+                    "latitude": "37.791826",
+                    "longitude": "-122.394953"
+                  }
+            }
+  ]
+
+

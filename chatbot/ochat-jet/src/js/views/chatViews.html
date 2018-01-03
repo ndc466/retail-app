@@ -1,0 +1,43 @@
+<!--
+ Copyright (c) 2014, 2016, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<!--
+ Copyright (c) 2014, 2016, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+
+<div class="oj-applayout-fixed-top">
+    <header id="chatHeader" role="banner"
+            class="oj-hybrid-applayout-header-no-border"
+            data-bind="ojModule: chatHeaderSettings">
+    </header>
+
+    <div role="navigation" class="oj-hybrid-applayout-navbar-page">
+        <div id="chatTabsNav" class="demo-nav-tabs"
+             data-bind="ojComponent:{component: 'ojNavigationList',
+             navigationLevel: 'page',
+             selection: router.stateId,
+             edge: 'top',
+             drillMode: 'none',
+             optionChange: navBarChange}">
+            <ul>
+                <li id="chatTabConversation">
+                    <a href="#">Chat</a>
+                </li>
+                <li id="chatTabFiles">
+                    <a href="#">Files</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div id="chat" class="oj-applayout-content" style="height:100vh">
+    <div id="chatMainPage"
+         role="main"
+         class="oj-hybrid-applayout-content"
+         data-bind="ojModule: moduleConfig"
+         style="height:100%;"></div>
+</div>

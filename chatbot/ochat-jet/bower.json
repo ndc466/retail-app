@@ -1,0 +1,9 @@
+{
+  "name": "oraclejet-app",
+  "version": "1.0.0",
+  "dependencies": {
+    "oraclejet": "2.1.0",
+    "requirejs": "^2.3.2",
+    "knockout-mapping": "^2.4.1"
+  }
+}

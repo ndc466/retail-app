@@ -1,0 +1,36 @@
+<!--
+ Copyright (c) 2014, 2016, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<!--
+ Copyright (c) 2014, 2016, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-applayout-fixed-top">
+    <header role="banner" class="oj-flex-bar oj-hybrid-applayout-header oj-sm-align-items-center"
+            data-bind="ojModule: settingsHeaderSettings">
+    </header>
+</div>
+
+<div class="oj-applayout-content">
+    <div role="main" class="oj-hybrid-applayout-content">
+        <div style="padding: 10px;">
+            <h4>CONNECTIONS</h4>
+            <form id="settingsForm">
+                <p>MCS integration</p>
+                <div class="oj-flex oj-sm-justify-content-space-between">
+                    <label id="mcsSwitchLabel" for="mcsSwitch" class="oj-label-inline">Mobile Cloud Service</label>
+                    <input id="mcsSwitch" data-bind="ojComponent: {component: 'ojSwitch', value: $root.isOnlineMode}"/>
+                </div>
+                <p>IBCS integration</p>
+                <div class="oj-flex oj-sm-justify-content-space-between">
+                    <label id="ibcsSwitchLabel" for="ibcsSwitch" class="oj-label-inline">Intelligent Bots Cloud
+                        Service</label>
+                    <input id="ibcsSwitch" data-bind="ojComponent: {component: 'ojSwitch', value: $root.isOnlineMode}"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
