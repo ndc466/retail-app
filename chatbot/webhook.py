@@ -7,7 +7,7 @@ app = Flask(__name__)
 APPLICATION_JSON_UTF8 = 'application/json; charset=utf-8'
 SECRET_KEY = bytes('2mdkVeybquXB71Zgr3bqAzhVh61Lq6Yn', 'utf8')
 USER_ID = '5E11F1BA-6C84-49AA-B717-895DF595DB0F'
-BOT_URL = 'https://e8af89b5.ngrok.io/connectors/v1/tenants/chatbot-tenant/listeners/webhook/channels/5E11F1BA-6C84-49AA-B717-895DF595DB0F'
+BOT_URL = 'http://44de8f5e.ngrok.io/connectors/v1/tenants/chatbot-tenant/listeners/webhook/channels/5E11F1BA-6C84-49AA-B717-895DF595DB0F'
 
 @app.route('/hello', methods=['GET'])
 def hello():
