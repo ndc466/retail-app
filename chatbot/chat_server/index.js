@@ -19,7 +19,7 @@ let port = process.env.PORT || 3010;
 const args = process.argv.slice(2);
 if (args.length >= 1 && args[0] === 'dev') {
 	mode = 'dev';
-	port = 3015;
+	port = 8088;
 }
 
 console.log('Mode: ' + mode);
