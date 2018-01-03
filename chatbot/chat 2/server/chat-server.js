@@ -25,13 +25,13 @@ function init(config, httpServer) {
 
 	var app = express();
 	logger.setLevel(config.logLevel||'INFO');
-  	log4js.replaceConsole(logger);
+  log4js.replaceConsole(logger);
 
 	const root = config.root || './';
 
 	app.use(cors());
 
-	console.log('Serve admin settings files', __dirname + '/admin');
+	console.log('serve admin settings files', __dirname + '/admin');
 	app.use('/admin', express.static(__dirname + '/admin'));
 	app.get('/admin/*', function(req, res) {
 		res.sendFile('index.html', { root: __dirname + '/admin' }); // load the single view file (angular will handle the page changes on the front-end)
@@ -69,7 +69,6 @@ function init(config, httpServer) {
 	}
 
 	function buildNewDB() {
-		console.log('Building New DB ...')
 		return {
 			users: [],
 			channels: [],
@@ -79,7 +78,6 @@ function init(config, httpServer) {
 	}
 
 	function saveDB() {
-		console.log('Saving DB ...')
 		let output = {
 			users: [...DB.users.values()].map( user => convertToPersistentUser(user) ),
 			channels: [...DB.channels.values()],
@@ -120,6 +118,182 @@ function init(config, httpServer) {
 		} else {
 			res.set(CONTENT_TYPE, APPLICATION_JSON_UTF8);
 			res.status(200).send(data); // file is read in as UTF-8 string
+		}
+	}
+
+	/********** Bot Channels (deprecated) **********/
+
+	const botChannelsRoute = app.route('/botChannels');
+	botChannelsRoute.all(bodyParser.json());
+	botChannelsRoute.get(getBots);
+	botChannelsRoute.post(postBot);
+	botChannelsRoute.delete(deleteBots);
+
+	const botChannelRoute = app.route('/botChannels/:id');
+	botChannelRoute.all(bodyParser.json());
+	botChannelRoute.put(putBot);
+	botChannelRoute.patch(patchBot);
+	botChannelRoute.delete(deleteBot);
+	botChannelRoute.get(getBot);
+
+	/********** Bots **********/
+
+	const botsRoute = app.route('/bots');
+	botsRoute.all(bodyParser.json());
+
+	/*
+	 GET all bots
+	 */
+	botsRoute.get(getBots);
+
+	function getBots(req, res) {
+		res.status(200).send([...DB.bots.values()]);
+	}
+
+	/*
+	 POST new bot
+	 */
+	botsRoute.post(postBot);
+
+	function postBot(req, res) {
+		const bot = req.body;
+
+		bot.id = uuid();
+
+		if ( ! validateBot(bot, res)) {
+			return;
+		}
+
+		res.status(201).send(bot);
+
+		DB.bots.set(bot.id, bot);
+		saveDB();
+	}
+
+	function validateBot(bot, res) {
+		if ( ! bot.name) {
+			res.status(400).send('Missing Name');
+			return false;
+		}
+		if ( ! bot.uri) {
+			res.status(400).send('Missing URI');
+			return false;
+		}
+		if ( ! bot.secretKey) {
+			res.status(400).send('Missing Secret Key');
+			return false;
+		}
+		for (let bc of [...DB.bots.values()]) {
+			if ((bot.name === bc.name) && (bot.id !== bc.id)) {
+				res.status(400).send('Duplicate name');
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/*
+	 DELETE bots
+	 */
+	botsRoute.delete(deleteBots);
+
+	function deleteBots(req, res) {
+		const name = req.query.name;
+		if (name) {
+			for (let bc of [...DB.bots.values()]) {
+				if (name === bc.name) {
+					// the name *should* be unique
+					return deleteBot_(bc.id, req, res);
+				}
+			}
+		}
+		res.status(400).send('Invalid query string');
+	}
+
+	const botRoute = app.route('/bots/:id');
+	botRoute.all(bodyParser.json());
+
+	/*
+	 PUT bot
+	 */
+	botRoute.put(putBot);
+
+	function putBot(req, res) {
+		const id = req.params.id;
+		const bot = req.body;
+
+		const exists = DB.bots.get(id);
+
+		if (id !== bot.id) {
+			const msg = util.format('Bot IDs do not match\n  URI ID:     %s\n  Payload ID: %s', id, bot.id);
+			return res.status(400).send(msg);
+		}
+
+		if ( ! validateBot(bot, res)) {
+			return;
+		}
+
+		res.status(exists ? 200 : 201).send(bot);
+
+		DB.bots.set(id, bot);
+		saveDB();
+	}
+
+	/*
+	 PATCH bot
+	 */
+	botRoute.patch(patchBot);
+
+	function patchBot(req, res) {
+		const id = req.params.id;
+		const bot = DB.bots.get(id);
+		if ( ! bot) {
+			return res.sendStatus(404);
+		}
+
+		if (req.body.id && (req.body.id !== id)) {
+			const msg = util.format('Bot IDs do not match\n  URI ID:     %s\n  Payload ID: %s', id, req.body.id);
+			return res.status(400).send(msg);
+		}
+
+		Object.assign(bot, req.body);
+
+		res.status(200).send(bot);
+		saveDB();
+	}
+
+	/*
+	 DELETE bot
+	 */
+	botRoute.delete(deleteBot);
+
+	function deleteBot(req, res) {
+		deleteBot_(req.params.id, req, res);
+	}
+
+	function deleteBot_(id, req, res) {
+		const bot = DB.bots.get(id);
+		if (bot) {
+			DB.bots.delete(id);
+			saveDB();
+			res.sendStatus(204);
+		} else {
+			res.sendStatus(404);
+		}
+	}
+
+	/*
+	 GET bot
+	 */
+	botRoute.get(getBot);
+
+	function getBot(req, res) {
+		const id = req.params.id;
+		const bot = DB.bots.get(id);
+		if (bot) {
+			res.status(200).send(bot);
+		} else {
+			res.sendStatus(404);
 		}
 	}
 
@@ -200,10 +374,10 @@ function init(config, httpServer) {
 	function wsMessage(ws, data, flags) {
 		console.log('WebSocket[%d] message:\n  Data: %s', ws.id, data);
 		const user = DB.users.get(ws.upgradeReq.userID);
-		if (!user) {
+		if ( ! user) {
 			return sendSystemErrorMessage(ws, WS_ERROR_USER_NOT_FOUND, {wsID: ws.id, userID: ws.upgradeReq.userID});
 		}
-		if (!user.webSockets.includes(ws)) {
+		if ( ! user.webSockets.includes(ws)) {
 			return sendSystemErrorMessage(ws, WS_ERROR_USER_WEB_SOCKET_NOT_FOUND, {wsID: ws.id, userID: ws.upgradeReq.userID});
 		}
 
@@ -211,7 +385,7 @@ function init(config, httpServer) {
 		const msgTo = msg.to || {};
 
 		const recipientType = msgTo.type;
-		if (!recipientType) {
+		if ( ! recipientType) {
 			return sendSystemErrorMessage(ws, WS_ERROR_MISSING_RECIPIENT_TYPE, {wsID: ws.id, userID: ws.upgradeReq.userID});
 		}
 
@@ -240,7 +414,6 @@ function init(config, httpServer) {
 
 	function wsMessageToBot(user, ws, msg, flags) {
 		const botID = msg.to.id;
-		botID = '21A05FAB-25B1-4DD9-9594-9E733CBAE66A';
 		if ( ! botID) {
 			return sendSystemErrorMessage(ws, WS_ERROR_MISSING_BOT_ID, {wsID: ws.id, userID: user.id});
 		}
@@ -287,7 +460,7 @@ function init(config, httpServer) {
 	}
 
 	function botsConnectorPostCallback(ws, uri, user, error, response, body) {
-		if (!error) {
+		if ( ! error) {
 			botsConnectorPostSuccess(ws, uri, user, response, body);
 		} else {
 			botsConnectorPostError(ws, uri, user, error, response);
@@ -483,182 +656,6 @@ function init(config, httpServer) {
 		}
 	}
 
-	/********** Bot Channels (deprecated) **********/
-
-	const botChannelsRoute = app.route('/botChannels');
-	botChannelsRoute.all(bodyParser.json());
-	botChannelsRoute.get(getBots);
-	botChannelsRoute.post(postBot);
-	botChannelsRoute.delete(deleteBots);
-
-	const botChannelRoute = app.route('/botChannels/:id');
-	botChannelRoute.all(bodyParser.json());
-	botChannelRoute.put(putBot);
-	botChannelRoute.patch(patchBot);
-	botChannelRoute.delete(deleteBot);
-	botChannelRoute.get(getBot);
-
-	/********** Bots **********/
-
-	const botsRoute = app.route('/bots');
-	botsRoute.all(bodyParser.json());
-
-	/*
-	 GET all bots
-	 */
-	botsRoute.get(getBots);
-
-	function getBots(req, res) {
-		res.status(200).send([...DB.bots.values()]);
-	}
-
-	/*
-	 POST new bot
-	 */
-	botsRoute.post(postBot);
-
-	function postBot(req, res) {
-		const bot = req.body;
-
-		bot.id = uuid();
-
-		if ( ! validateBot(bot, res)) {
-			return;
-		}
-
-		res.status(201).send(bot);
-
-		DB.bots.set(bot.id, bot);
-		saveDB();
-	}
-
-	function validateBot(bot, res) {
-		if ( ! bot.name) {
-			res.status(400).send('Missing Name');
-			return false;
-		}
-		if ( ! bot.uri) {
-			res.status(400).send('Missing URI');
-			return false;
-		}
-		if ( ! bot.secretKey) {
-			res.status(400).send('Missing Secret Key');
-			return false;
-		}
-		for (let bc of [...DB.bots.values()]) {
-			if ((bot.name === bc.name) && (bot.id !== bc.id)) {
-				res.status(400).send('Duplicate name');
-				return false;
-			}
-		}
-		return true;
-	}
-
-	/*
-	 DELETE bots
-	 */
-	botsRoute.delete(deleteBots);
-
-	function deleteBots(req, res) {
-		const name = req.query.name;
-		if (name) {
-			for (let bc of [...DB.bots.values()]) {
-				if (name === bc.name) {
-					// the name *should* be unique
-					return deleteBot_(bc.id, req, res);
-				}
-			}
-		}
-		res.status(400).send('Invalid query string');
-	}
-
-	const botRoute = app.route('/bots/:id');
-	botRoute.all(bodyParser.json());
-
-	/*
-	 PUT bot
-	 */
-	botRoute.put(putBot);
-
-	function putBot(req, res) {
-		const id = req.params.id;
-		const bot = req.body;
-
-		const exists = DB.bots.get(id);
-
-		if (id !== bot.id) {
-			const msg = util.format('Bot IDs do not match\n  URI ID:     %s\n  Payload ID: %s', id, bot.id);
-			return res.status(400).send(msg);
-		}
-
-		if ( ! validateBot(bot, res)) {
-			return;
-		}
-
-		res.status(exists ? 200 : 201).send(bot);
-
-		DB.bots.set(id, bot);
-		saveDB();
-	}
-
-	/*
-	 PATCH bot
-	 */
-	botRoute.patch(patchBot);
-
-	function patchBot(req, res) {
-		const id = req.params.id;
-		const bot = DB.bots.get(id);
-		if ( ! bot) {
-			return res.sendStatus(404);
-		}
-
-		if (req.body.id && (req.body.id !== id)) {
-			const msg = util.format('Bot IDs do not match\n  URI ID:     %s\n  Payload ID: %s', id, req.body.id);
-			return res.status(400).send(msg);
-		}
-
-		Object.assign(bot, req.body);
-
-		res.status(200).send(bot);
-		saveDB();
-	}
-
-	/*
-	 DELETE bot
-	 */
-	botRoute.delete(deleteBot);
-
-	function deleteBot(req, res) {
-		deleteBot_(req.params.id, req, res);
-	}
-
-	function deleteBot_(id, req, res) {
-		const bot = DB.bots.get(id);
-		if (bot) {
-			DB.bots.delete(id);
-			saveDB();
-			res.sendStatus(204);
-		} else {
-			res.sendStatus(404);
-		}
-	}
-
-	/*
-	 GET bot
-	 */
-	botRoute.get(getBot);
-
-	function getBot(req, res) {
-		const id = req.params.id;
-		const bot = DB.bots.get(id);
-		if (bot) {
-			res.status(200).send(bot);
-		} else {
-			res.sendStatus(404);
-		}
-	}
-
 	/********** Misc **********/
 
 	/*
@@ -666,9 +663,7 @@ function init(config, httpServer) {
 	 'secret' is a String
 	 */
 	function buildSignatureHeader(buf, secret) {
-		const hmac = crypto.createHmac('sha256', Buffer.from(secret, 'utf8'));
-		hmac.update(buf);
-		return 'sha256=' + hmac.digest('hex');
+		return 'sha256=' + buildSignature(buf, secret);
 	}
 
 	/*
