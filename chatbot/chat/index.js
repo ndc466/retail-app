@@ -11,7 +11,7 @@ const chatServer = require('./app.js');
 const root = __dirname;
 
 let mode = 'prod';
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 8000;
 
 const args = process.argv.slice(2);
 if (args.length >= 1 && args[0] === 'dev') {
