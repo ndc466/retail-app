@@ -46,7 +46,7 @@ function handleAppError(err, req, res, next) {
 
 const httpServer = http.createServer(app);
 
-var subApp = chatServer.init(chatRouter, httpServer, config);
+var subApp = chatServer.init(config, httpServer);
 app.use(config.chatPath, subApp);
 
 app.use(function notFound(req, res, next) {
