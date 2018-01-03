@@ -23,6 +23,7 @@ def receive():
 @app.route('/send', methods=['POST'])
 def send():
     msg = request.data
+    print(msg)
     sha256 = hashlib.sha256(SECRET_KEY)
     sha256.update(msg)
     signature = 'sha256=' + sha256.hexdigest()
@@ -31,6 +32,7 @@ def send():
         'X-Hub-Signature': signature
     }
     r = requests.post(BOT_URL, data=msg, headers=headers)
+    return r.
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8888, ssl_context='adhoc')
