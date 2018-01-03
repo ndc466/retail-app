@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, abort
 import requests, hashlib, json
 
 app = Flask(__name__)
-app.debug = True
+#app.debug = True
 
 APPLICATION_JSON_UTF8 = 'application/json; charset=utf-8'
 SECRET_KEY = bytes('2mdkVeybquXB71Zgr3bqAzhVh61Lq6Yn', 'utf8')
