@@ -1,0 +1,17 @@
+{
+  "name": "Oracle OChat",
+  "short_name": "OChat WebApp",
+  "start_url": "index.html",
+  "icons": [
+    {
+      "src": "img/FIF_launcher2_icon.png",
+      "sizes": "212x212",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#fff",
+  "theme_color": "#0572ce",
+  "display": "standalone",
+  "orientation": "portrait"
+}
+.
