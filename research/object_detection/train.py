@@ -52,6 +52,8 @@ import oci
 
 from google.protobuf import text_format
 
+sys.path.append('..')
+
 from object_detection import trainer
 from object_detection.builders import input_reader_builder
 from object_detection.builders import model_builder
