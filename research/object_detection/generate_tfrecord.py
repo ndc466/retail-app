@@ -91,18 +91,19 @@ def main(_):
     os.makedirs('data')
     for split in ['train', 'test']:
         #writer = tf.python_io.TFRecordWriter(FLAGS.output_path)
-        writer = tf.python_io.TFRecordWriter('data/'+split+'.record')
         #examples = pd.read_csv(FLAGS.csv_input)
-        labels = object_storage.get_object(namespace, split+'_images', 'image_labels.csv').data.content
-        df = pd.read_csv(io.BytesIO(labels))
         #examples = pd.read_csv('data/'+split+'_labels.csv')
         #path = os.path.join(os.getcwd(), 'images')
+        #grouped = split(df, 'filename')
+        
+        writer = tf.python_io.TFRecordWriter('data/'+split+'.record')
+        labels = object_storage.get_object(namespace, split+'_images', 'image_labels.csv').data.content
+        df = pd.read_csv(io.BytesIO(labels))
         
         data = namedtuple('data', ['filename', 'object'])
         gb = df.groupby('filename')
         grouped = [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]
 
-        #grouped = split(df, 'filename')
         multipart_upload_details = models.CreateMultipartUploadDetails()
         multipart_upload_details.object = split+'.record'
         multipart_upload = object_storage.create_multipart_upload(namespace, 'tfrecords', multipart_upload_details)
@@ -126,7 +127,7 @@ def main(_):
         commit_details.parts_to_commit = parts_to_commit
         commit_details.parts_to_exclude = parts_to_exclude
         res = object_storage.commit_multipart_upload(namespace, 'tfrecords', split+'.record', upload_id, commit_details)
-        #writer.close()
+        writer.close()
         #output_path = os.path.join(os.getcwd(), "data/"+split_type+".record")
         print('Successfully created the %s TFRecord' % (split))
 
