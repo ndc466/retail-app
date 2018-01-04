@@ -8,7 +8,7 @@ define([], function () {
     var user = '1';
 
     var options = {
-        server: 'localhost:8888',
+        server: '129.146.81.61:8088',
         route: '/chat/ws?user='
     };
 
