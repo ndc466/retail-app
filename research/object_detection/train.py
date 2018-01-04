@@ -155,8 +155,8 @@ def main(_):
 		f.write(pbtxt)
 	assert FLAGS.train_dir, '`train_dir` is missing.'
 	if FLAGS.pipeline_config_path:
-    	model_config, train_config, input_config = get_configs_from_pipeline_file()
-  	else:
+		model_config, train_config, input_config = get_configs_from_pipeline_file()
+	else:
     	model_config, train_config, input_config = get_configs_from_multiple_files()
 
 	model_fn = functools.partial(
