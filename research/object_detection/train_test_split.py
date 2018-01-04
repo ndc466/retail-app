@@ -18,7 +18,7 @@ from sklearn.model_selection import train_test_split as split
 import oci
 
 from PIL import Image
-from object_detection.utils import dataset_util
+from utils import dataset_util
 from collections import namedtuple, OrderedDict
 
 config = oci.config.from_file()
