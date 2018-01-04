@@ -25,6 +25,7 @@ var/
 .installed.cfg
 *.egg
 node_modules/
+bower_components/
 package-lock.json
 
 # PyInstaller
