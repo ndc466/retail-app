@@ -13,7 +13,7 @@ import cv2
 cap = cv2.VideoCapture(0)
 
 # This is needed since the notebook is stored in the object_detection folder.
-sys.path.append("..")
+#sys.path.append("..")
 
 from utils import label_map_util
 from utils import visualization_utils as vis_util
