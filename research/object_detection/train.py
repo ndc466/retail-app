@@ -153,13 +153,8 @@ def main(_):
 	pbtxt = object_storage.get_object(namespace, 'training', 'object_detection.pbtxt').data.content
 	with open('data/object_detection.pbtxt', 'wb') as f:
 		f.write(pbtxt)
-"""	tfrecords = [f.name for f in object_storage.list_objects(namespace, 'tfrecords').data.objects]
-	for tfr in tfrecords:
-		tfrecord = object_storage.get_object(namespace, 'tfrecords', tfr).data.content
-		with open('data/'+tfr, 'wb') as f:
-			f.write(tfrecord)"""
 	assert FLAGS.train_dir, '`train_dir` is missing.'
-  	if FLAGS.pipeline_config_path:
+	if FLAGS.pipeline_config_path:
     	model_config, train_config, input_config = get_configs_from_pipeline_file()
   	else:
     	model_config, train_config, input_config = get_configs_from_multiple_files()
