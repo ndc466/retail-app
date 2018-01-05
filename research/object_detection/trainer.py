@@ -206,8 +206,7 @@ def train(create_tensor_dict_fn, create_model_fn, train_config, master, task,
 		if train_config.fine_tune_checkpoint:
 			var_map = detection_model.restore_map(from_detection_checkpoint=train_config.from_detection_checkpoint)
 			#fine_tune_checkpoint = object_storage.get_object(namespace, 'ssd_mobilenet_v1_coco_11_06_2017', 'model.ckpt').data.content
-			#available_var_map = (variables_helper.get_variables_available_in_checkpoint(var_map, train_config.fine_tune_checkpoint))
-			available_var_map = {}
+			available_var_map = (variables_helper.get_variables_available_in_checkpoint(var_map, train_config.fine_tune_checkpoint))
 			init_saver = tf.train.Saver(available_var_map)
 			def initializer_fn(sess):
 				init_saver.restore(sess, train_config.fine_tune_checkpoint)
