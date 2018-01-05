@@ -47,6 +47,9 @@ import functools
 import tensorflow as tf
 
 from google.protobuf import text_format
+
+sys.path.append('..')
+
 from object_detection import evaluator
 from object_detection.builders import input_reader_builder
 from object_detection.builders import model_builder
