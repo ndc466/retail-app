@@ -1,1 +1,1 @@
-python eval.py --logtostderr --checkpoint_dir=training/ --eval_dir=evaluation/ --pipeline_config_path=training/ssd_mobilenet_v1_coco.config
+python eval.py --logtostderr --checkpoint_dir=models/model/train/ --eval_dir=models/model/eval/ --pipeline_config_path=training/ssd_mobilenet_v1_coco.config
