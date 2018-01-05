@@ -191,12 +191,12 @@ def main(_):
     if worker_replicas > 1 and ps_tasks < 1:
         raise ValueError('At least 1 ps task is needed for distributed training.')
 
-	if worker_replicas >= 1 and ps_tasks > 0:
-		# Set up distributed training.
-		server = tf.train.Server(tf.train.ClusterSpec(cluster), protocol='grpc',
-								job_name=task_info.type,
-								task_index=task_info.index)
-		if task_info.type == 'ps':
+    if worker_replicas >= 1 and ps_tasks > 0:
+        # Set up distributed training.
+        server = tf.train.Server(tf.train.ClusterSpec(cluster), protocol='grpc',
+                                job_name=task_info.type,
+                                task_index=task_info.index)
+        if task_info.type == 'ps':
             server.join()
             return
 
@@ -211,4 +211,4 @@ def main(_):
 
 
 if __name__ == '__main__':
-	tf.app.run()
+    tf.app.run()
