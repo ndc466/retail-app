@@ -150,10 +150,14 @@ def get_configs_from_multiple_files():
 
 
 def main(_):
-    os.makedirs('data')
     pbtxt = object_storage.get_object(namespace, 'training', 'object_detection.pbtxt').data.content
+    coco = object_storage.get_object(namespace, 'training', 'ssd_mobilenet_v1_coco.config').data.content
     with open('data/object_detection.pbtxt', 'wb') as f:
         f.write(pbtxt)
+    with open('training/object_detection.pbtxt', 'wb') as f:
+        f.write(pbtxt)
+    with open('training/ssd_mobilenet_v1_coco.config', 'wb') as f:
+        f.write(coco)
     assert FLAGS.train_dir, '`train_dir` is missing.'
     if FLAGS.pipeline_config_path:
         model_config, train_config, input_config = get_configs_from_pipeline_file()
