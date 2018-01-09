@@ -19,9 +19,10 @@ This file provides a generic training method that can be used to train a
 DetectionModel.
 """
 
-import functools
+import functools, sys
 
 import tensorflow as tf
+
 
 from object_detection.builders import optimizer_builder
 from object_detection.builders import preprocessor_builder
@@ -30,7 +31,7 @@ from object_detection.core import preprocessor
 from object_detection.core import standard_fields as fields
 from object_detection.utils import ops as util_ops
 from object_detection.utils import variables_helper
-from deployment import model_deploy
+from slim.deployment import model_deploy
 
 slim = tf.contrib.slim
 
@@ -205,8 +206,7 @@ def train(create_tensor_dict_fn, create_model_fn, train_config, master, task,
 		if train_config.fine_tune_checkpoint:
 			var_map = detection_model.restore_map(from_detection_checkpoint=train_config.from_detection_checkpoint)
 			#fine_tune_checkpoint = object_storage.get_object(namespace, 'ssd_mobilenet_v1_coco_11_06_2017', 'model.ckpt').data.content
-			#available_var_map = (variables_helper.get_variables_available_in_checkpoint(var_map, train_config.fine_tune_checkpoint))
-			available_var_map = {}
+			available_var_map = (variables_helper.get_variables_available_in_checkpoint(var_map, train_config.fine_tune_checkpoint))
 			init_saver = tf.train.Saver(available_var_map)
 			def initializer_fn(sess):
 				init_saver.restore(sess, train_config.fine_tune_checkpoint)

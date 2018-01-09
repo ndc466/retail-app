@@ -101,4 +101,5 @@ research/object_detection/data/**
 research/object_detection/images/**
 research/object_detection/ssd_mobilenet_v1_coco_11_06_2017
 research/object_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
-research/object_detection/training/**
+research/object_detection/models/model/train/**
+research/object_detection/models/model/eval/**

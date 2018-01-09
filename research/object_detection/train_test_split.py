@@ -18,7 +18,7 @@ from sklearn.model_selection import train_test_split as split
 import oci
 
 from PIL import Image
-from object_detection.utils import dataset_util
+from utils import dataset_util
 from collections import namedtuple, OrderedDict
 
 config = oci.config.from_file()
@@ -79,6 +79,12 @@ def main():
     res = object_storage.put_object(namespace, 'training', 'object_detection.pbtxt', pbtxt)
     res = object_storage.put_object(namespace, 'training', 'ssd_mobilenet_v1_coco.config', coco)
     res = object_storage.put_object(namespace, 'training', 'row_labels.json', row_labels)
+
+    print('Writing config files to "data/" and "models/model" directories, respectively ...')
+    with open('data/object_detection.pbtxt', 'wb') as f:
+        f.write(pbtxt)
+    with open('models/model/ssd_mobilenet_v1_coco.config', 'wb') as f:
+        f.write(coco)
 
     # Write the corresponding image files to the Train and Test buckets
     print('Writing %s objects to "train_images" bucket ...' % (len(train)))

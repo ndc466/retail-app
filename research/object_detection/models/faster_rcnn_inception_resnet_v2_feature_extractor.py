@@ -29,7 +29,6 @@ from nets import inception_resnet_v2
 
 slim = tf.contrib.slim
 
-
 class FasterRCNNInceptionResnetV2FeatureExtractor(
     faster_rcnn_meta_arch.FasterRCNNFeatureExtractor):
   """Faster R-CNN with Inception Resnet v2 feature extractor implementation."""
