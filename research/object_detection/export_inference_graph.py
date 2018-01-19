@@ -100,6 +100,7 @@ def get_ckpt():
                 latest = int(f[11:17])
             else:
                 if int(f[11:17]) > latest: latest = int(f[11:17])
+    print('Latest checkpoint: %s' % (latest))
     return str(latest)
 
 def main(_):
