@@ -95,13 +95,13 @@ ENV/
 # PyCharm
 .idea/
 
-~$*
+~$**
 
-research/object_detection/inference_graphs/**
-!research/object_detection/inference_graphs/frozen_inference_graph.pb
-research/object_detection/data/**
-research/object_detection/images/**
-research/object_detection/ssd_mobilenet_v1_coco_11_06_2017
-research/object_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
-research/object_detection/models/model/train/**
-research/object_detection/models/model/eval/**
+object_detection/inference_graphs/**
+!object_detection/inference_graphs/frozen_inference_graph.pb
+object_detection/data/**
+object_detection/images/**
+object_detection/ssd_mobilenet_v1_coco_11_06_2017
+object_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
+object_detection/models/model/train/**
+object_detection/models/model/eval/**
