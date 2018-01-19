@@ -99,7 +99,7 @@ ENV/
 
 object_detection/inference_graphs/**
 !object_detection/inference_graphs/frozen_inference_graph.pb
-object_detection/data/**
+object_detection/data/*.record
 object_detection/images/**
 object_detection/ssd_mobilenet_v1_coco_11_06_2017
 object_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
