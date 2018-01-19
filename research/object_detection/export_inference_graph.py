@@ -96,10 +96,13 @@ def get_ckpt():
     files = os.listdir('./models/model/train')
     for f in files:
         if f.startswith('model.ckpt-'):
+            #end_index = 11
+            for i in range(11, len(f)):
+                if f[i] == '.': break
             if latest == []:
-                latest = int(f[11:17])
+                latest = int(f[11:i])
             else:
-                if int(f[11:17]) > latest: latest = int(f[11:17])
+                if int(f[11:i]) > latest: latest = int(f[11:i])
     print('Latest checkpoint: %s' % (latest))
     return str(latest)
 
