@@ -67,9 +67,12 @@ with contents:
  + saved_model (a directory)
 """
 import tensorflow as tf
+import sys
 from google.protobuf import text_format
-import exporter
-from protos import pipeline_pb2
+
+sys.path.append('..')
+from object_detection import exporter
+from object_detection.protos import pipeline_pb2
 
 slim = tf.contrib.slim
 
