@@ -95,6 +95,8 @@ ENV/
 # PyCharm
 .idea/
 
+~*
+
 research/object_detection/inference_graphs/**
 !research/object_detection/inference_graphs/frozen_inference_graph.pb
 research/object_detection/data/**
