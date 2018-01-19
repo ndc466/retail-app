@@ -67,7 +67,7 @@ with contents:
  + saved_model (a directory)
 """
 import tensorflow as tf
-import sys, os
+import sys, os, shutil
 from google.protobuf import text_format
 
 sys.path.append('..')
