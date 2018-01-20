@@ -18,7 +18,6 @@ import oci
 from oci.object_storage.models import CreateBucketDetails
 
 from PIL import Image
-from object_detection.utils import dataset_util
 from collections import namedtuple, OrderedDict
 
 config = oci.config.from_file()
