@@ -15,3 +15,7 @@ wait
 printf "\n\nTraining complete, exporting inference graph\n"
 printf "________________________________________________\n\n"
 python export_inference_graph.py
+
+printf "\n\nSending frozen_inference_graph to REST server\n"
+printf "________________________________________________\n\n"
+scp frozen_inference_graph.pb opc@129.146.81.61:~
