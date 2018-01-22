@@ -36,7 +36,7 @@ app.debug = DEBUG
 PATH_TO_CKPT = '../../frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.path.join('training', 'object_detection.pbtxt')
+PATH_TO_LABELS = os.path.join('data', 'object_detection.pbtxt')
 NUM_CLASSES = 3
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 # ## Load a (frozen) Tensorflow model into memory.
