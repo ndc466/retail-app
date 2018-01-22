@@ -20,7 +20,7 @@ from utils import visualization_utils as vis_util
 
 parser = ConfigParser()
 pwd = os.path.dirname(__file__)
-parser.read(os.path.join(os.path.abspath(pwd), "../../../", "settings.conf"))
+parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
 DEBUG = bool(parser.get("ENV", "DEBUG"))
 HOST = str(parser.get("ENV", "HOST"))
 PORT = int(parser.get("ENV", "PORT"))
