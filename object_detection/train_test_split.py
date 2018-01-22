@@ -35,6 +35,11 @@ def clean():
     os.mkdir('./models/model/train')
     shutil.rmtree('./models/model/eval')
     os.mkdir('./models/model/eval')
+    print('Cleaning config files')
+    try:
+        os.remove('./data/object_detection.pbtxt')
+        os.remove('./models/model/ssd_mobilenet_v1_coco.config')
+    except Exception as e: pass
     print('Cleaning "train_images" and "test_images" buckets ...')
     for bucket in ['train_images', 'test_images']:
         objects = [f.name for f in object_storage.list_objects(namespace, bucket).data.objects]

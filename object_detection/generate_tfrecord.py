@@ -87,8 +87,10 @@ def create_tf_example(group):
   # Create test data:
   # python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=data/test.record
 def main(_):
-    if os.path.exists('data') == True: shutil.rmtree('data')
-    os.makedirs('data')
+    try:
+        os.remove('./data/test.record')
+        os.remove('./data/train.record')
+    except Exception as e: pass
     for split in ['train', 'test']:
         #writer = tf.python_io.TFRecordWriter(FLAGS.output_path)
         #examples = pd.read_csv(FLAGS.csv_input)
