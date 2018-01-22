@@ -97,7 +97,7 @@ ENV/
 
 ~$**
 
-object_detection/inference_graphs/**
+object_detection/output_graph/**
 !object_detection/inference_graphs/frozen_inference_graph.pb
 object_detection/data/*.record
 object_detection/images/**
