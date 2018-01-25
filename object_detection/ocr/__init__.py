@@ -19,7 +19,7 @@ def img_to_str(path):
     img = cv2.imread(path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     temp = 'temp'+path[-4:]
-    cv2.imwrite(temp)
+    cv2.imwrite(temp, gray)
     img = Image.open(temp)
     txt = tool.image_to_string(
         img,
