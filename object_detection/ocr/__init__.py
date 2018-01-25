@@ -32,7 +32,7 @@ def img_to_str(path):
         builder=pyocr.builders.WordBoxBuilder()
     )
     line_and_word_boxes = tool.image_to_string(
-        Image.open('test.png'), 
+        img, 
         lang="eng",
         builder=pyocr.builders.LineBoxBuilder()
     )
