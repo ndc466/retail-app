@@ -22,22 +22,20 @@ def img_to_str(path):
     temp = 'temp'+img[-4:]
     cv2.imwrite(temp)
     img = Image.open(temp)
-
     txt = tool.image_to_string(
         img,
         lang=lang,
         builder=pyocr.builders.TextBuilder()
     )
-
     word_boxes = tool.image_to_string(
         img,
         lang="eng",
         builder=pyocr.builders.WordBoxBuilder()
     )
-
     line_and_word_boxes = tool.image_to_string(
         Image.open('test.png'), 
         lang="eng",
         builder=pyocr.builders.LineBoxBuilder()
     )
+    os.remove(temp)
     return txt, word_boxes, line_and_word_boxes
