@@ -16,10 +16,9 @@ langs = tool.get_available_languages()
 lang = langs[0]
 
 def img_to_str(path):
-    img_type = path[:-3]
     img = cv2.imread(path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    temp = 'temp'+img[-4:]
+    temp = 'temp'+path[-4:]
     cv2.imwrite(temp)
     img = Image.open(temp)
     txt = tool.image_to_string(
