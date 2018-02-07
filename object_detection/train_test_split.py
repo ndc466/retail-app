@@ -99,8 +99,11 @@ def main():
     # Write the corresponding image files to the Train and Test buckets
     print('Writing %s objects to "train_images" bucket ...' % (len(train)))
     for img_file in train['filename']:
-        img = object_storage.get_object(namespace, 'images', img_file).data.content
-        res = object_storage.put_object(namespace, 'train_images', img_file, img)
+        try:
+            img = object_storage.get_object(namespace, 'images', img_file).data.content
+            res = object_storage.put_object(namespace, 'train_images', img_file, img)
+        except Exception as e:
+            print('Failed on img_file: %s' % (img_file))
     print('Writing %s objects to "test_images" bucket ...' % (len(test)))
     for img_file in test['filename']:
         img = object_storage.get_object(namespace, 'images', img_file).data.content
