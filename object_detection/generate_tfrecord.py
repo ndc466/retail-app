@@ -10,7 +10,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
 
-import os, io, shutil, json
+import os, io, shutil, json, threading
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -86,52 +86,56 @@ def create_tf_example(group):
   # python generate_tfrecord.py --csv_input=data/train_labels.csv  --output_path=data/train.record
   # Create test data:
   # python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=data/test.record
+
+def generate_tfrecord(split):
+    writer = tf.python_io.TFRecordWriter('data/'+split+'.record')
+    labels = object_storage.get_object(namespace, split+'_images', 'image_labels.csv').data.content
+    df = pd.read_csv(io.BytesIO(labels))
+    
+    data = namedtuple('data', ['filename', 'object'])
+    gb = df.groupby('filename')
+    grouped = [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]
+
+    multipart_upload_details = models.CreateMultipartUploadDetails()
+    multipart_upload_details.object = split+'.record'
+    multipart_upload = object_storage.create_multipart_upload(namespace, 'tfrecords', multipart_upload_details)
+    upload_id = multipart_upload.data.upload_id
+    etags = []
+    parts_to_commit = []
+    parts_to_exclude = []
+    for ID, group in enumerate(grouped):
+        tf_example = create_tf_example(group)
+        part = object_storage.upload_part(namespace, 'tfrecords', split+'.record', upload_id, ID+1, tf_example.SerializeToString())
+        detail = models.CommitMultipartUploadPartDetails()
+        detail.part_num = ID+1
+        if 'etag' in part.headers:
+            detail.etag = part.headers['etag']
+            parts_to_commit.append(detail)
+        else:
+            print('Part %s has no ETag' % (ID+1))
+            parts_to_exclude.append(ID+1)
+        writer.write(tf_example.SerializeToString())
+    commit_details = models.CommitMultipartUploadDetails()
+    commit_details.parts_to_commit = parts_to_commit
+    commit_details.parts_to_exclude = parts_to_exclude
+    res = object_storage.commit_multipart_upload(namespace, 'tfrecords', split+'.record', upload_id, commit_details)
+    writer.close()
+    #output_path = os.path.join(os.getcwd(), "data/"+split_type+".record")
+    print('Successfully created the %s TFRecord' % (split))
+
 def main(_):
     try:
         os.remove('./data/test.record')
         os.remove('./data/train.record')
     except Exception as e: pass
+    threads = []
     for split in ['train', 'test']:
-        #writer = tf.python_io.TFRecordWriter(FLAGS.output_path)
-        #examples = pd.read_csv(FLAGS.csv_input)
-        #examples = pd.read_csv('data/'+split+'_labels.csv')
-        #path = os.path.join(os.getcwd(), 'images')
-        #grouped = split(df, 'filename')
+        thread = threading.Thread(target=generate_tfrecord, args=(split,))
+        threads.append(thread)
+        thread.start()
+    for thread in threads:
+        thread.join()
         
-        writer = tf.python_io.TFRecordWriter('data/'+split+'.record')
-        labels = object_storage.get_object(namespace, split+'_images', 'image_labels.csv').data.content
-        df = pd.read_csv(io.BytesIO(labels))
-        
-        data = namedtuple('data', ['filename', 'object'])
-        gb = df.groupby('filename')
-        grouped = [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]
-
-        multipart_upload_details = models.CreateMultipartUploadDetails()
-        multipart_upload_details.object = split+'.record'
-        multipart_upload = object_storage.create_multipart_upload(namespace, 'tfrecords', multipart_upload_details)
-        upload_id = multipart_upload.data.upload_id
-        etags = []
-        parts_to_commit = []
-        parts_to_exclude = []
-        for ID, group in enumerate(grouped):
-            tf_example = create_tf_example(group)
-            part = object_storage.upload_part(namespace, 'tfrecords', split+'.record', upload_id, ID+1, tf_example.SerializeToString())
-            detail = models.CommitMultipartUploadPartDetails()
-            detail.part_num = ID+1
-            if 'etag' in part.headers:
-                detail.etag = part.headers['etag']
-                parts_to_commit.append(detail)
-            else:
-                print('Part %s has no ETag' % (ID+1))
-                parts_to_exclude.append(ID+1)
-            writer.write(tf_example.SerializeToString())
-        commit_details = models.CommitMultipartUploadDetails()
-        commit_details.parts_to_commit = parts_to_commit
-        commit_details.parts_to_exclude = parts_to_exclude
-        res = object_storage.commit_multipart_upload(namespace, 'tfrecords', split+'.record', upload_id, commit_details)
-        writer.close()
-        #output_path = os.path.join(os.getcwd(), "data/"+split_type+".record")
-        print('Successfully created the %s TFRecord' % (split))
 
 if __name__ == '__main__':
     tf.app.run()
