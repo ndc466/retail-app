@@ -11,11 +11,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import os, io, shutil, json
-import pandas as pd
-import numpy as np
-import tensorflow as tf
 import oci
-from oci.object_storage.models import CreateBucketDetails
 
 from PIL import Image
 from collections import namedtuple, OrderedDict
