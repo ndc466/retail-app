@@ -10,7 +10,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
 
-import os, io, shutil, json
+import os, io, shutil, json, threading
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -51,6 +51,13 @@ def clean():
         object_storage.delete_object(namespace, 'images', 'image_labels.csv')
     except Exception as e:
         pass
+
+def transfer_to_bucket(bucket, img_file):
+    try:
+        img = object_storage.get_object(namespace, 'images', img_file).data.content
+        res = object_storage.put_object(namespace, bucket, img_file, img)
+    except Exception as e:
+        print('Failed on train img_file: %s' % (img_file))
 
 def main():
     row_labels = {}
@@ -98,16 +105,18 @@ def main():
 
     # Write the corresponding image files to the Train and Test buckets
     print('Writing %s objects to "train_images" bucket ...' % (len(train)))
+    threads = []
     for img_file in train['filename']:
-        try:
-            img = object_storage.get_object(namespace, 'images', img_file).data.content
-            res = object_storage.put_object(namespace, 'train_images', img_file, img)
-        except Exception as e:
-            print('Failed on img_file: %s' % (img_file))
+        thread = threading.Thread(target=transfer_to_bucket ,args=('train_images', img_file))
+        threads.append(thread)
+        thread.start()
     print('Writing %s objects to "test_images" bucket ...' % (len(test)))
     for img_file in test['filename']:
-        img = object_storage.get_object(namespace, 'images', img_file).data.content
-        res = object_storage.put_object(namespace, 'test_images', img_file, img)
+        thread = threading.Thread(target=transfer_to_bucket ,args=('test_images', img_file))
+        threads.append(thread)
+        thread.start()      
+    for thread in threads:
+        thread.join()
 
 if __name__ == '__main__':
     clean()
