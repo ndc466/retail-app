@@ -2,8 +2,7 @@ from PIL import Image
 import pyocr
 import pyocr.builders
 import cv2
-import os
-import shutil
+import os, sys, shutil
 
 tools = pyocr.get_available_tools()
 if len(tools) == 0:
@@ -15,10 +14,11 @@ tool = tools[0]
 langs = tool.get_available_languages()
 lang = langs[0]
 
-def img_to_str(path):
-    img = cv2.imread(path)
+def img_to_str(img_file):
+    path = './test_images'
+    img = cv2.imread(os.path.join(path, img_file))
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    temp = 'temp'+path[-4:]
+    temp = os.path.join(path, 'temp'+img_file[-4:])
     cv2.imwrite(temp, gray)
     img = Image.open(temp)
     txt = tool.image_to_string(
