@@ -16,4 +16,5 @@ python export_inference_graph.py
 
 printf "\n\nSending frozen_inference_graph to REST server\n"
 printf "________________________________________________\n\n"
-scp frozen_inference_graph.pb opc@129.146.81.61:~
+scp output_graph/frozen_inference_graph.pb opc@129.146.81.61:~
+scp data/object_detection.pbtxt opc@129.146.81.61:~/retail_app/object_detection/data/
