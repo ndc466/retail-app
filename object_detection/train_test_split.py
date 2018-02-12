@@ -58,6 +58,7 @@ def transfer_to_bucket(bucket, img_file):
         res = object_storage.put_object(namespace, bucket, img_file, img)
     except Exception as e:
         print('Failed on train img_file: %s' % (img_file))
+        print(e)
 
 def main():
     row_labels = {}
