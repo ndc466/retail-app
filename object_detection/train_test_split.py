@@ -58,6 +58,7 @@ def transfer_to_bucket(bucket, img_file):
         res = object_storage.put_object(namespace, bucket, img_file, img)
     except Exception as e:
         print('Failed on train img_file: %s' % (img_file))
+        print(e)
 
 def main():
     row_labels = {}
@@ -110,6 +111,9 @@ def main():
         thread = threading.Thread(target=transfer_to_bucket ,args=('train_images', img_file))
         threads.append(thread)
         thread.start()
+    for thread in threads:
+        thread.join()  
+    threads = []   
     print('Writing %s objects to "test_images" bucket ...' % (len(test)))
     for img_file in test['filename']:
         thread = threading.Thread(target=transfer_to_bucket ,args=('test_images', img_file))
