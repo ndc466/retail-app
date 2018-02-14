@@ -141,7 +141,7 @@ def detect():
                 dclasses[i]['ymin'] = box[0]*height
                 dclasses[i]['xmin'] = box[1]*width
                 dclasses[i]['ymax'] = box[2]*height
-                dclasses[i]['xmax'] = box[3]*width 
+                dclasses[i]['xmax'] = box[3]*width
             return jsonify({
                 "data": dclasses
             })

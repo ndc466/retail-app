@@ -1,3 +1,6 @@
+printf "Name of your new model: "
+read new_model
+
 printf "Creating train and test sets from object storage\n"
 printf "________________________________________________\n\n"
 python train_test_split.py

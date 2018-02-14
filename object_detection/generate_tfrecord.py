@@ -130,6 +130,7 @@ def main(_):
     except Exception as e: pass
     threads = []
     for split in ['train', 'test']:
+        print('Generating %s.record file' % (split))
         thread = threading.Thread(target=generate_tfrecord, args=(split,))
         threads.append(thread)
         thread.start()
