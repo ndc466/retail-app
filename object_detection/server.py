@@ -7,14 +7,11 @@ from flask import Flask, request, jsonify, render_template
 from flask import Response, redirect, url_for, flash, send_file
 from configparser import ConfigParser
 from PIL import Image
-#from matplotlib import pyplot as plt
-
+from matplotlib import pyplot as plt
 import cv2
 cap = cv2.VideoCapture(0)
-
 # This is needed since the notebook is stored in the object_detection folder.
 sys.path.append("..")
-
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
@@ -28,17 +25,14 @@ PORT = int(parser.get("ENV", "PORT"))
 app = Flask(__name__)
 app.debug = DEBUG
 
-# What model to download.
-# MODEL_NAME = 'inference_graphs'
-
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
-# PATH_TO_CKPT = MODEL_NAME + '../../frozen_inference_graph.pb'
 PATH_TO_CKPT = '../../frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
 PATH_TO_LABELS = os.path.join('data', 'object_detection.pbtxt')
 NUM_CLASSES = 3
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 # ## Load a (frozen) Tensorflow model into memory.
 detection_graph = tf.Graph()
 with detection_graph.as_default():
