@@ -40,12 +40,12 @@ def clean():
         os.remove('./data/object_detection.pbtxt')
         os.remove('./models/model/ssd_mobilenet_v1_coco.config')
     except Exception as e: pass
-    print('Cleaning "all_labels.csv" from the "images" bucket ...\n')
+    print('Cleaning "all_labels.csv" from the "images" bucket ...')
     try:
         object_storage.delete_object(namespace, 'images', 'image_labels.csv')
     except Exception as e:
         pass
-    print('Cleaning "train_images" and "test_images" buckets ...')
+    print('Cleaning "train_images" and "test_images" buckets ...\n')
     while True:
         for bucket in ['train_images', 'test_images']:
             objects = [f.name for f in object_storage.list_objects(namespace, bucket).data.objects]
@@ -107,10 +107,17 @@ def main():
         f.write(coco)
 
     # Write the corresponding image files to the Train and Test buckets
-    print('Writing %s objects to "train_images" bucket ...' % (len(train)))
+    """print('Writing %s objects to "train_images" bucket ...' % (len(train)))
+    for img_file in train['filename']:
+        transfer_to_bucket('train_images', img_file)
+    print('Writing %s objects to "test_images" bucket ...' % (len(test)))
+    for img_file in test['filename']:
+        transfer_to_bucket('test_images', img_file) """
+
+    ## multithreading
     threads = []
     for img_file in train['filename']:
-        thread = threading.Thread(target=transfer_to_bucket ,args=('train_images', img_file))
+        thread = threading.Thread(target=transfer_to_bucket, args=('train_images', img_file,))
         threads.append(thread)
         thread.start()
     for thread in threads:
@@ -118,7 +125,7 @@ def main():
     threads = []   
     print('Writing %s objects to "test_images" bucket ...' % (len(test)))
     for img_file in test['filename']:
-        thread = threading.Thread(target=transfer_to_bucket ,args=('test_images', img_file))
+        thread = threading.Thread(target=transfer_to_bucket, args=('test_images', img_file,))
         threads.append(thread)
         thread.start()      
     for thread in threads:
