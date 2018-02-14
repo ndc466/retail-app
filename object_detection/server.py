@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify, render_template
 from flask import Response, redirect, url_for, flash, send_file
 from configparser import ConfigParser
 from PIL import Image
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 import cv2
 cap = cv2.VideoCapture(0)
 # This is needed since the notebook is stored in the object_detection folder.
