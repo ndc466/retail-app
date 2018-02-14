@@ -40,17 +40,19 @@ def clean():
         os.remove('./data/object_detection.pbtxt')
         os.remove('./models/model/ssd_mobilenet_v1_coco.config')
     except Exception as e: pass
-    print('Cleaning "train_images" and "test_images" buckets ...')
-    for bucket in ['train_images', 'test_images']:
-        objects = [f.name for f in object_storage.list_objects(namespace, bucket).data.objects]
-        print('Cleaning %s objects from %s bucket ...' % (len(objects), bucket))
-        for obj in objects:
-            object_storage.delete_object(namespace, bucket, obj)
     print('Cleaning "all_labels.csv" from the "images" bucket ...\n')
     try:
         object_storage.delete_object(namespace, 'images', 'image_labels.csv')
     except Exception as e:
         pass
+    print('Cleaning "train_images" and "test_images" buckets ...')
+    while True:
+        for bucket in ['train_images', 'test_images']:
+            objects = [f.name for f in object_storage.list_objects(namespace, bucket).data.objects]
+            if bucket == 'train_images' and len(objects) == 0: return
+            print('Cleaning %s objects from %s bucket ...' % (len(objects), bucket))
+            for obj in objects:
+                object_storage.delete_object(namespace, bucket, obj)
 
 def transfer_to_bucket(bucket, img_file):
     try:
