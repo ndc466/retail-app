@@ -131,9 +131,19 @@ def detect():
                 use_normalized_coordinates=True,
                 line_thickness=8)
             img = Image.fromarray(image_np)
-            #dclasses = list(np.squeeze(classes[0]).astype(np.int32)) 
+            width, height = img.size
+            classes = classes[0]
+            boxes = boxes[0]
+            scores = scores[0]
+            dclasses = [category_index.get(value) for index,value in enumerate(classes) if scores[index] > min_score_thresh]
+            boxes = boxes[:len(dclasses)]
+            for i, box in enumerate(boxes):
+                dclasses[i]['ymin'] = box[0]*height
+                dclasses[i]['xmin'] = box[1]*width
+                dclasses[i]['ymax'] = box[2]*height
+                dclasses[i]['xmax'] = box[3]*width 
             return jsonify({
-                "label": [category_index.get(value) for index,value in enumerate(classes[0]) if scores[0,index] > 0.7][0]['name']
+                "data": dclasses
             })
     #img.save("output_image.jpg"+ftype)
     #return send_file("./output_image.jpg", mimetype='image/jpeg')
