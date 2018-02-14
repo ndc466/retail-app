@@ -115,6 +115,7 @@ def main():
         transfer_to_bucket('test_images', img_file) """
 
     ## multithreading
+    print('Writing %s objects to "train_images" bucket ...' % (len(train)))
     threads = []
     for img_file in train['filename']:
         thread = threading.Thread(target=transfer_to_bucket, args=('train_images', img_file,))
