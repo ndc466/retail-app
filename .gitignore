@@ -27,6 +27,7 @@ var/
 node_modules/
 bower_components/
 package-lock.json
+!detectron/lib/dataset_catalog.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -97,11 +98,11 @@ ENV/
 
 ~$**
 
-object_detection/output_graph/**
-!object_detection/inference_graphs/frozen_inference_graph.pb
-object_detection/data/*.record
-object_detection/images/**
-object_detection/ssd_mobilenet_v1_coco_11_06_2017
-object_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
-object_detection/models/model/train/**
-object_detection/models/model/eval/**
+tensorflow/output_graph/**
+!tensorflow/inference_graphs/frozen_inference_graph.pb
+tensorflow/data/*.record
+tensorflow/images/**
+tensorflow/ssd_mobilenet_v1_coco_11_06_2017
+tensorflow/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
+tensorflow/models/model/train/**
+tensorflow/models/model/eval/**
