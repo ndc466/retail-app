@@ -80,15 +80,15 @@ def main():
         f.write(coco)
 
     # Write the corresponding image files to the Train and Test buckets
-    """print('Writing %s objects to "train_images" bucket ...' % (len(train)))
+    print('Writing %s objects to "train_images" bucket ...' % (len(train)))
     for img_file in train['filename']:
         transfer_to_bucket('train_images', img_file)
     print('Writing %s objects to "test_images" bucket ...' % (len(test)))
     for img_file in test['filename']:
-        transfer_to_bucket('test_images', img_file) """
+        transfer_to_bucket('test_images', img_file)
 
     ## multithreading
-    print('Writing %s objects to "train_images" bucket ...' % (len(train)))
+    """print('Writing %s objects to "train_images" bucket ...' % (len(train)))
     threads = []
     for img_file in train['filename']:
         thread = threading.Thread(target=transfer_to_bucket, args=('train_images', img_file,))
@@ -103,7 +103,7 @@ def main():
         threads.append(thread)
         thread.start()      
     for thread in threads:
-        thread.join()
+        thread.join()"""
 
 if __name__ == '__main__':
     main()
