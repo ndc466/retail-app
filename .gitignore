@@ -16,7 +16,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -106,3 +105,6 @@ tensorflow/ssd_mobilenet_v1_coco_11_06_2017
 tensorflow/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
 tensorflow/models/model/train/**
 tensorflow/models/model/eval/**
+detectron/lib/datasets/data
+detectron/lib/datasets/cityscapes
+detectron/lib/datasets/VOCdevkit-matlab-wrapper
