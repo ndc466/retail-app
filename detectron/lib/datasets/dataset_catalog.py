@@ -185,5 +185,17 @@ DATASETS = {
             _DATA_DIR + '/VOC2012/annotations/voc_2012_trainval.json',
         DEVKIT_DIR:
             _DATA_DIR + '/VOC2012/VOCdevkit2012'
+    },
+    'target_train': {
+        IM_DIR:
+            _DATA_DIR + '/target/target_train',
+        ANN_FN:
+            _DATA_DIR + '/target/annotations/target_train.json'
+    },
+    'target_test': {
+        IM_DIR:
+            _DATA_DIR + '/target/target_test',
+        ANN_FN:
+            _DATA_DIR + '/target/annotations/target_test.json'
     }
 }
