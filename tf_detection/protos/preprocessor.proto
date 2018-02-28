@@ -1,9 +1,9 @@
 syntax = "proto2";
 
-package object_detection.protos;
+package tf_detection.protos;
 
 // Message for defining a preprocessing operation on input data.
-// See: //object_detection/core/preprocessor.py
+// See: //tf_detection/core/preprocessor.py
 message PreprocessingStep {
   oneof preprocessing_step {
     NormalizeImage normalize_image = 1;

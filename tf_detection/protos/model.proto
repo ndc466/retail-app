@@ -1,9 +1,9 @@
 syntax = "proto2";
 
-package object_detection.protos;
+package tf_detection.protos;
 
-import "object_detection/protos/faster_rcnn.proto";
-import "object_detection/protos/ssd.proto";
+import "tf_detection/protos/faster_rcnn.proto";
+import "tf_detection/protos/ssd.proto";
 
 // Top level configuration for DetectionModels.
 message DetectionModel {
