@@ -18,9 +18,9 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tf_detection/protos/region_similarity_calculator.proto',
   package='tf_detection.protos',
-  syntax='proto2',
-  serialized_pb=_b('\n:tf_detection/protos/region_similarity_calculator.proto\x12\x17tf_detection.protos\"\x85\x02\n\x1aRegionSimilarityCalculator\x12N\n\x16neg_sq_dist_similarity\x18\x01 \x01(\x0b\x32,.tf_detection.protos.NegSqDistSimilarityH\x00\x12@\n\x0eiou_similarity\x18\x02 \x01(\x0b\x32&.tf_detection.protos.IouSimilarityH\x00\x12@\n\x0eioa_similarity\x18\x03 \x01(\x0b\x32&.tf_detection.protos.IoaSimilarityH\x00\x42\x13\n\x11region_similarity\"\x15\n\x13NegSqDistSimilarity\"\x0f\n\rIouSimilarity\"\x0f\n\rIoaSimilarity')
+  serialized_pb=_b('\n6tf_detection/protos/region_similarity_calculator.proto\x12\x13tf_detection.protos\"\xf9\x01\n\x1aRegionSimilarityCalculator\x12J\n\x16neg_sq_dist_similarity\x18\x01 \x01(\x0b\x32(.tf_detection.protos.NegSqDistSimilarityH\x00\x12<\n\x0eiou_similarity\x18\x02 \x01(\x0b\x32\".tf_detection.protos.IouSimilarityH\x00\x12<\n\x0eioa_similarity\x18\x03 \x01(\x0b\x32\".tf_detection.protos.IoaSimilarityH\x00\x42\x13\n\x11region_similarity\"\x15\n\x13NegSqDistSimilarity\"\x0f\n\rIouSimilarity\"\x0f\n\rIoaSimilarity')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -61,15 +61,14 @@ _REGIONSIMILARITYCALCULATOR = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
       name='region_similarity', full_name='tf_detection.protos.RegionSimilarityCalculator.region_similarity',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=88,
-  serialized_end=349,
+  serialized_start=80,
+  serialized_end=329,
 )
 
 
@@ -88,12 +87,11 @@ _NEGSQDISTSIMILARITY = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=351,
-  serialized_end=372,
+  serialized_start=331,
+  serialized_end=352,
 )
 
 
@@ -112,12 +110,11 @@ _IOUSIMILARITY = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=374,
-  serialized_end=389,
+  serialized_start=354,
+  serialized_end=369,
 )
 
 
@@ -136,12 +133,11 @@ _IOASIMILARITY = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=391,
-  serialized_end=406,
+  serialized_start=371,
+  serialized_end=386,
 )
 
 _REGIONSIMILARITYCALCULATOR.fields_by_name['neg_sq_dist_similarity'].message_type = _NEGSQDISTSIMILARITY
@@ -160,7 +156,6 @@ DESCRIPTOR.message_types_by_name['RegionSimilarityCalculator'] = _REGIONSIMILARI
 DESCRIPTOR.message_types_by_name['NegSqDistSimilarity'] = _NEGSQDISTSIMILARITY
 DESCRIPTOR.message_types_by_name['IouSimilarity'] = _IOUSIMILARITY
 DESCRIPTOR.message_types_by_name['IoaSimilarity'] = _IOASIMILARITY
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 RegionSimilarityCalculator = _reflection.GeneratedProtocolMessageType('RegionSimilarityCalculator', (_message.Message,), dict(
   DESCRIPTOR = _REGIONSIMILARITYCALCULATOR,

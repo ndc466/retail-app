@@ -13,19 +13,19 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from tf_detection.protos import eval_pb2 as object__detection_dot_protos_dot_eval__pb2
-from tf_detection.protos import input_reader_pb2 as object__detection_dot_protos_dot_input__reader__pb2
-from tf_detection.protos import model_pb2 as object__detection_dot_protos_dot_model__pb2
-from tf_detection.protos import train_pb2 as object__detection_dot_protos_dot_train__pb2
+import tf_detection.protos.eval_pb2
+import tf_detection.protos.input_reader_pb2
+import tf_detection.protos.model_pb2
+import tf_detection.protos.train_pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tf_detection/protos/pipeline.proto',
   package='tf_detection.protos',
-  syntax='proto2',
-  serialized_pb=_b('\n&tf_detection/protos/pipeline.proto\x12\x17tf_detection.protos\x1a\"tf_detection/protos/eval.proto\x1a*tf_detection/protos/input_reader.proto\x1a#tf_detection/protos/model.proto\x1a#tf_detection/protos/train.proto\"\xca\x02\n\x17TrainEvalPipelineConfig\x12\x36\n\x05model\x18\x01 \x01(\x0b\x32\'.tf_detection.protos.DetectionModel\x12:\n\x0ctrain_config\x18\x02 \x01(\x0b\x32$.tf_detection.protos.TrainConfig\x12@\n\x12train_input_reader\x18\x03 \x01(\x0b\x32$.tf_detection.protos.InputReader\x12\x38\n\x0b\x65val_config\x18\x04 \x01(\x0b\x32#.tf_detection.protos.EvalConfig\x12?\n\x11\x65val_input_reader\x18\x05 \x01(\x0b\x32$.tf_detection.protos.InputReader')
+  serialized_pb=_b('\n\"tf_detection/protos/pipeline.proto\x12\x13tf_detection.protos\x1a\x1etf_detection/protos/eval.proto\x1a&tf_detection/protos/input_reader.proto\x1a\x1ftf_detection/protos/model.proto\x1a\x1ftf_detection/protos/train.proto\"\xb6\x02\n\x17TrainEvalPipelineConfig\x12\x32\n\x05model\x18\x01 \x01(\x0b\x32#.tf_detection.protos.DetectionModel\x12\x36\n\x0ctrain_config\x18\x02 \x01(\x0b\x32 .tf_detection.protos.TrainConfig\x12<\n\x12train_input_reader\x18\x03 \x01(\x0b\x32 .tf_detection.protos.InputReader\x12\x34\n\x0b\x65val_config\x18\x04 \x01(\x0b\x32\x1f.tf_detection.protos.EvalConfig\x12;\n\x11\x65val_input_reader\x18\x05 \x01(\x0b\x32 .tf_detection.protos.InputReader')
   ,
-  dependencies=[object__detection_dot_protos_dot_eval__pb2.DESCRIPTOR,object__detection_dot_protos_dot_input__reader__pb2.DESCRIPTOR,object__detection_dot_protos_dot_model__pb2.DESCRIPTOR,object__detection_dot_protos_dot_train__pb2.DESCRIPTOR,])
+  dependencies=[tf_detection.protos.eval_pb2.DESCRIPTOR,tf_detection.protos.input_reader_pb2.DESCRIPTOR,tf_detection.protos.model_pb2.DESCRIPTOR,tf_detection.protos.train_pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -80,21 +80,19 @@ _TRAINEVALPIPELINECONFIG = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=222,
-  serialized_end=552,
+  serialized_start=198,
+  serialized_end=508,
 )
 
-_TRAINEVALPIPELINECONFIG.fields_by_name['model'].message_type = object__detection_dot_protos_dot_model__pb2._DETECTIONMODEL
-_TRAINEVALPIPELINECONFIG.fields_by_name['train_config'].message_type = object__detection_dot_protos_dot_train__pb2._TRAINCONFIG
-_TRAINEVALPIPELINECONFIG.fields_by_name['train_input_reader'].message_type = object__detection_dot_protos_dot_input__reader__pb2._INPUTREADER
-_TRAINEVALPIPELINECONFIG.fields_by_name['eval_config'].message_type = object__detection_dot_protos_dot_eval__pb2._EVALCONFIG
-_TRAINEVALPIPELINECONFIG.fields_by_name['eval_input_reader'].message_type = object__detection_dot_protos_dot_input__reader__pb2._INPUTREADER
+_TRAINEVALPIPELINECONFIG.fields_by_name['model'].message_type = tf_detection.protos.model_pb2._DETECTIONMODEL
+_TRAINEVALPIPELINECONFIG.fields_by_name['train_config'].message_type = tf_detection.protos.train_pb2._TRAINCONFIG
+_TRAINEVALPIPELINECONFIG.fields_by_name['train_input_reader'].message_type = tf_detection.protos.input_reader_pb2._INPUTREADER
+_TRAINEVALPIPELINECONFIG.fields_by_name['eval_config'].message_type = tf_detection.protos.eval_pb2._EVALCONFIG
+_TRAINEVALPIPELINECONFIG.fields_by_name['eval_input_reader'].message_type = tf_detection.protos.input_reader_pb2._INPUTREADER
 DESCRIPTOR.message_types_by_name['TrainEvalPipelineConfig'] = _TRAINEVALPIPELINECONFIG
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 TrainEvalPipelineConfig = _reflection.GeneratedProtocolMessageType('TrainEvalPipelineConfig', (_message.Message,), dict(
   DESCRIPTOR = _TRAINEVALPIPELINECONFIG,

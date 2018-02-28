@@ -18,9 +18,9 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tf_detection/protos/post_processing.proto',
   package='tf_detection.protos',
-  syntax='proto2',
-  serialized_pb=_b('\n-tf_detection/protos/post_processing.proto\x12\x17tf_detection.protos\"\x9a\x01\n\x16\x42\x61tchNonMaxSuppression\x12\x1a\n\x0fscore_threshold\x18\x01 \x01(\x02:\x01\x30\x12\x1a\n\riou_threshold\x18\x02 \x01(\x02:\x03\x30.6\x12%\n\x18max_detections_per_class\x18\x03 \x01(\x05:\x03\x31\x30\x30\x12!\n\x14max_total_detections\x18\x05 \x01(\x05:\x03\x31\x30\x30\"\xf9\x01\n\x0ePostProcessing\x12R\n\x19\x62\x61tch_non_max_suppression\x18\x01 \x01(\x0b\x32/.tf_detection.protos.BatchNonMaxSuppression\x12Y\n\x0fscore_converter\x18\x02 \x01(\x0e\x32\x36.tf_detection.protos.PostProcessing.ScoreConverter:\x08IDENTITY\"8\n\x0eScoreConverter\x12\x0c\n\x08IDENTITY\x10\x00\x12\x0b\n\x07SIGMOID\x10\x01\x12\x0b\n\x07SOFTMAX\x10\x02')
+  serialized_pb=_b('\n)tf_detection/protos/post_processing.proto\x12\x13tf_detection.protos\"\x9a\x01\n\x16\x42\x61tchNonMaxSuppression\x12\x1a\n\x0fscore_threshold\x18\x01 \x01(\x02:\x01\x30\x12\x1a\n\riou_threshold\x18\x02 \x01(\x02:\x03\x30.6\x12%\n\x18max_detections_per_class\x18\x03 \x01(\x05:\x03\x31\x30\x30\x12!\n\x14max_total_detections\x18\x05 \x01(\x05:\x03\x31\x30\x30\"\xf1\x01\n\x0ePostProcessing\x12N\n\x19\x62\x61tch_non_max_suppression\x18\x01 \x01(\x0b\x32+.tf_detection.protos.BatchNonMaxSuppression\x12U\n\x0fscore_converter\x18\x02 \x01(\x0e\x32\x32.tf_detection.protos.PostProcessing.ScoreConverter:\x08IDENTITY\"8\n\x0eScoreConverter\x12\x0c\n\x08IDENTITY\x10\x00\x12\x0b\n\x07SIGMOID\x10\x01\x12\x0b\n\x07SOFTMAX\x10\x02')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -45,8 +45,8 @@ _POSTPROCESSING_SCORECONVERTER = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=425,
-  serialized_end=481,
+  serialized_start=409,
+  serialized_end=465,
 )
 _sym_db.RegisterEnumDescriptor(_POSTPROCESSING_SCORECONVERTER)
 
@@ -61,14 +61,14 @@ _BATCHNONMAXSUPPRESSION = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='score_threshold', full_name='tf_detection.protos.BatchNonMaxSuppression.score_threshold', index=0,
       number=1, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(0),
+      has_default_value=True, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='iou_threshold', full_name='tf_detection.protos.BatchNonMaxSuppression.iou_threshold', index=1,
       number=2, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(0.6),
+      has_default_value=True, default_value=0.6,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -94,12 +94,11 @@ _BATCHNONMAXSUPPRESSION = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=75,
-  serialized_end=229,
+  serialized_start=67,
+  serialized_end=221,
 )
 
 
@@ -133,12 +132,11 @@ _POSTPROCESSING = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=232,
-  serialized_end=481,
+  serialized_start=224,
+  serialized_end=465,
 )
 
 _POSTPROCESSING.fields_by_name['batch_non_max_suppression'].message_type = _BATCHNONMAXSUPPRESSION
@@ -146,7 +144,6 @@ _POSTPROCESSING.fields_by_name['score_converter'].enum_type = _POSTPROCESSING_SC
 _POSTPROCESSING_SCORECONVERTER.containing_type = _POSTPROCESSING
 DESCRIPTOR.message_types_by_name['BatchNonMaxSuppression'] = _BATCHNONMAXSUPPRESSION
 DESCRIPTOR.message_types_by_name['PostProcessing'] = _POSTPROCESSING
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 BatchNonMaxSuppression = _reflection.GeneratedProtocolMessageType('BatchNonMaxSuppression', (_message.Message,), dict(
   DESCRIPTOR = _BATCHNONMAXSUPPRESSION,

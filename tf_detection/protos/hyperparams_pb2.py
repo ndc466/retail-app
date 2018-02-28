@@ -18,9 +18,9 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tf_detection/protos/hyperparams.proto',
   package='tf_detection.protos',
-  syntax='proto2',
-  serialized_pb=_b('\n)tf_detection/protos/hyperparams.proto\x12\x17tf_detection.protos\"\x87\x03\n\x0bHyperparams\x12\x39\n\x02op\x18\x01 \x01(\x0e\x32\'.tf_detection.protos.Hyperparams.Op:\x04\x43ONV\x12\x39\n\x0bregularizer\x18\x02 \x01(\x0b\x32$.tf_detection.protos.Regularizer\x12\x39\n\x0binitializer\x18\x03 \x01(\x0b\x32$.tf_detection.protos.Initializer\x12I\n\nactivation\x18\x04 \x01(\x0e\x32/.tf_detection.protos.Hyperparams.Activation:\x04RELU\x12\x36\n\nbatch_norm\x18\x05 \x01(\x0b\x32\".tf_detection.protos.BatchNorm\"\x16\n\x02Op\x12\x08\n\x04\x43ONV\x10\x01\x12\x06\n\x02\x46\x43\x10\x02\",\n\nActivation\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04RELU\x10\x01\x12\n\n\x06RELU_6\x10\x02\"\xa6\x01\n\x0bRegularizer\x12@\n\x0el1_regularizer\x18\x01 \x01(\x0b\x32&.tf_detection.protos.L1RegularizerH\x00\x12@\n\x0el2_regularizer\x18\x02 \x01(\x0b\x32&.tf_detection.protos.L2RegularizerH\x00\x42\x13\n\x11regularizer_oneof\"\"\n\rL1Regularizer\x12\x11\n\x06weight\x18\x01 \x01(\x02:\x01\x31\"\"\n\rL2Regularizer\x12\x11\n\x06weight\x18\x01 \x01(\x02:\x01\x31\"\xdc\x01\n\x0bInitializer\x12[\n\x1ctruncated_normal_initializer\x18\x01 \x01(\x0b\x32\x33.tf_detection.protos.TruncatedNormalInitializerH\x00\x12[\n\x1cvariance_scaling_initializer\x18\x02 \x01(\x0b\x32\x33.tf_detection.protos.VarianceScalingInitializerH\x00\x42\x13\n\x11initializer_oneof\"@\n\x1aTruncatedNormalInitializer\x12\x0f\n\x04mean\x18\x01 \x01(\x02:\x01\x30\x12\x11\n\x06stddev\x18\x02 \x01(\x02:\x01\x31\"\xc5\x01\n\x1aVarianceScalingInitializer\x12\x11\n\x06\x66\x61\x63tor\x18\x01 \x01(\x02:\x01\x32\x12\x16\n\x07uniform\x18\x02 \x01(\x08:\x05\x66\x61lse\x12N\n\x04mode\x18\x03 \x01(\x0e\x32\x38.tf_detection.protos.VarianceScalingInitializer.Mode:\x06\x46\x41N_IN\",\n\x04Mode\x12\n\n\x06\x46\x41N_IN\x10\x00\x12\x0b\n\x07\x46\x41N_OUT\x10\x01\x12\x0b\n\x07\x46\x41N_AVG\x10\x02\"z\n\tBatchNorm\x12\x14\n\x05\x64\x65\x63\x61y\x18\x01 \x01(\x02:\x05\x30.999\x12\x14\n\x06\x63\x65nter\x18\x02 \x01(\x08:\x04true\x12\x14\n\x05scale\x18\x03 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07\x65psilon\x18\x04 \x01(\x02:\x05\x30.001\x12\x13\n\x05train\x18\x05 \x01(\x08:\x04true')
+  serialized_pb=_b('\n%tf_detection/protos/hyperparams.proto\x12\x13tf_detection.protos\"\xf3\x02\n\x0bHyperparams\x12\x35\n\x02op\x18\x01 \x01(\x0e\x32#.tf_detection.protos.Hyperparams.Op:\x04\x43ONV\x12\x35\n\x0bregularizer\x18\x02 \x01(\x0b\x32 .tf_detection.protos.Regularizer\x12\x35\n\x0binitializer\x18\x03 \x01(\x0b\x32 .tf_detection.protos.Initializer\x12\x45\n\nactivation\x18\x04 \x01(\x0e\x32+.tf_detection.protos.Hyperparams.Activation:\x04RELU\x12\x32\n\nbatch_norm\x18\x05 \x01(\x0b\x32\x1e.tf_detection.protos.BatchNorm\"\x16\n\x02Op\x12\x08\n\x04\x43ONV\x10\x01\x12\x06\n\x02\x46\x43\x10\x02\",\n\nActivation\x12\x08\n\x04NONE\x10\x00\x12\x08\n\x04RELU\x10\x01\x12\n\n\x06RELU_6\x10\x02\"\x9e\x01\n\x0bRegularizer\x12<\n\x0el1_regularizer\x18\x01 \x01(\x0b\x32\".tf_detection.protos.L1RegularizerH\x00\x12<\n\x0el2_regularizer\x18\x02 \x01(\x0b\x32\".tf_detection.protos.L2RegularizerH\x00\x42\x13\n\x11regularizer_oneof\"\"\n\rL1Regularizer\x12\x11\n\x06weight\x18\x01 \x01(\x02:\x01\x31\"\"\n\rL2Regularizer\x12\x11\n\x06weight\x18\x01 \x01(\x02:\x01\x31\"\xd4\x01\n\x0bInitializer\x12W\n\x1ctruncated_normal_initializer\x18\x01 \x01(\x0b\x32/.tf_detection.protos.TruncatedNormalInitializerH\x00\x12W\n\x1cvariance_scaling_initializer\x18\x02 \x01(\x0b\x32/.tf_detection.protos.VarianceScalingInitializerH\x00\x42\x13\n\x11initializer_oneof\"@\n\x1aTruncatedNormalInitializer\x12\x0f\n\x04mean\x18\x01 \x01(\x02:\x01\x30\x12\x11\n\x06stddev\x18\x02 \x01(\x02:\x01\x31\"\xc1\x01\n\x1aVarianceScalingInitializer\x12\x11\n\x06\x66\x61\x63tor\x18\x01 \x01(\x02:\x01\x32\x12\x16\n\x07uniform\x18\x02 \x01(\x08:\x05\x66\x61lse\x12J\n\x04mode\x18\x03 \x01(\x0e\x32\x34.tf_detection.protos.VarianceScalingInitializer.Mode:\x06\x46\x41N_IN\",\n\x04Mode\x12\n\n\x06\x46\x41N_IN\x10\x00\x12\x0b\n\x07\x46\x41N_OUT\x10\x01\x12\x0b\n\x07\x46\x41N_AVG\x10\x02\"z\n\tBatchNorm\x12\x14\n\x05\x64\x65\x63\x61y\x18\x01 \x01(\x02:\x05\x30.999\x12\x14\n\x06\x63\x65nter\x18\x02 \x01(\x08:\x04true\x12\x14\n\x05scale\x18\x03 \x01(\x08:\x05\x66\x61lse\x12\x16\n\x07\x65psilon\x18\x04 \x01(\x02:\x05\x30.001\x12\x13\n\x05train\x18\x05 \x01(\x08:\x04true')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -41,8 +41,8 @@ _HYPERPARAMS_OP = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=394,
-  serialized_end=416,
+  serialized_start=366,
+  serialized_end=388,
 )
 _sym_db.RegisterEnumDescriptor(_HYPERPARAMS_OP)
 
@@ -67,8 +67,8 @@ _HYPERPARAMS_ACTIVATION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=418,
-  serialized_end=462,
+  serialized_start=390,
+  serialized_end=434,
 )
 _sym_db.RegisterEnumDescriptor(_HYPERPARAMS_ACTIVATION)
 
@@ -93,8 +93,8 @@ _VARIANCESCALINGINITIALIZER_MODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1148,
-  serialized_end=1192,
+  serialized_start=1100,
+  serialized_end=1144,
 )
 _sym_db.RegisterEnumDescriptor(_VARIANCESCALINGINITIALIZER_MODE)
 
@@ -151,12 +151,11 @@ _HYPERPARAMS = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=71,
-  serialized_end=462,
+  serialized_start=63,
+  serialized_end=434,
 )
 
 
@@ -189,15 +188,14 @@ _REGULARIZER = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
       name='regularizer_oneof', full_name='tf_detection.protos.Regularizer.regularizer_oneof',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=465,
-  serialized_end=631,
+  serialized_start=437,
+  serialized_end=595,
 )
 
 
@@ -211,7 +209,7 @@ _L1REGULARIZER = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='weight', full_name='tf_detection.protos.L1Regularizer.weight', index=0,
       number=1, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(1),
+      has_default_value=True, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -223,12 +221,11 @@ _L1REGULARIZER = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=633,
-  serialized_end=667,
+  serialized_start=597,
+  serialized_end=631,
 )
 
 
@@ -242,7 +239,7 @@ _L2REGULARIZER = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='weight', full_name='tf_detection.protos.L2Regularizer.weight', index=0,
       number=1, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(1),
+      has_default_value=True, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -254,12 +251,11 @@ _L2REGULARIZER = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=669,
-  serialized_end=703,
+  serialized_start=633,
+  serialized_end=667,
 )
 
 
@@ -292,15 +288,14 @@ _INITIALIZER = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
       name='initializer_oneof', full_name='tf_detection.protos.Initializer.initializer_oneof',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=706,
-  serialized_end=926,
+  serialized_start=670,
+  serialized_end=882,
 )
 
 
@@ -314,14 +309,14 @@ _TRUNCATEDNORMALINITIALIZER = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='mean', full_name='tf_detection.protos.TruncatedNormalInitializer.mean', index=0,
       number=1, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(0),
+      has_default_value=True, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='stddev', full_name='tf_detection.protos.TruncatedNormalInitializer.stddev', index=1,
       number=2, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(1),
+      has_default_value=True, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -333,12 +328,11 @@ _TRUNCATEDNORMALINITIALIZER = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=928,
-  serialized_end=992,
+  serialized_start=884,
+  serialized_end=948,
 )
 
 
@@ -352,7 +346,7 @@ _VARIANCESCALINGINITIALIZER = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='factor', full_name='tf_detection.protos.VarianceScalingInitializer.factor', index=0,
       number=1, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(2),
+      has_default_value=True, default_value=2,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -379,12 +373,11 @@ _VARIANCESCALINGINITIALIZER = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=995,
-  serialized_end=1192,
+  serialized_start=951,
+  serialized_end=1144,
 )
 
 
@@ -398,7 +391,7 @@ _BATCHNORM = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='decay', full_name='tf_detection.protos.BatchNorm.decay', index=0,
       number=1, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(0.999),
+      has_default_value=True, default_value=0.999,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -419,7 +412,7 @@ _BATCHNORM = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='epsilon', full_name='tf_detection.protos.BatchNorm.epsilon', index=3,
       number=4, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(0.001),
+      has_default_value=True, default_value=0.001,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -438,12 +431,11 @@ _BATCHNORM = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1194,
-  serialized_end=1316,
+  serialized_start=1146,
+  serialized_end=1268,
 )
 
 _HYPERPARAMS.fields_by_name['op'].enum_type = _HYPERPARAMS_OP
@@ -479,7 +471,6 @@ DESCRIPTOR.message_types_by_name['Initializer'] = _INITIALIZER
 DESCRIPTOR.message_types_by_name['TruncatedNormalInitializer'] = _TRUNCATEDNORMALINITIALIZER
 DESCRIPTOR.message_types_by_name['VarianceScalingInitializer'] = _VARIANCESCALINGINITIALIZER
 DESCRIPTOR.message_types_by_name['BatchNorm'] = _BATCHNORM
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Hyperparams = _reflection.GeneratedProtocolMessageType('Hyperparams', (_message.Message,), dict(
   DESCRIPTOR = _HYPERPARAMS,

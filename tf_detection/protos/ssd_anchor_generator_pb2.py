@@ -18,9 +18,9 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tf_detection/protos/ssd_anchor_generator.proto',
   package='tf_detection.protos',
-  syntax='proto2',
-  serialized_pb=_b('\n2tf_detection/protos/ssd_anchor_generator.proto\x12\x17tf_detection.protos\"\x9f\x01\n\x12SsdAnchorGenerator\x12\x15\n\nnum_layers\x18\x01 \x01(\x05:\x01\x36\x12\x16\n\tmin_scale\x18\x02 \x01(\x02:\x03\x30.2\x12\x17\n\tmax_scale\x18\x03 \x01(\x02:\x04\x30.95\x12\x15\n\raspect_ratios\x18\x04 \x03(\x02\x12*\n\x1creduce_boxes_in_lowest_layer\x18\x05 \x01(\x08:\x04true')
+  serialized_pb=_b('\n.tf_detection/protos/ssd_anchor_generator.proto\x12\x13tf_detection.protos\"\x9f\x01\n\x12SsdAnchorGenerator\x12\x15\n\nnum_layers\x18\x01 \x01(\x05:\x01\x36\x12\x16\n\tmin_scale\x18\x02 \x01(\x02:\x03\x30.2\x12\x17\n\tmax_scale\x18\x03 \x01(\x02:\x04\x30.95\x12\x15\n\raspect_ratios\x18\x04 \x03(\x02\x12*\n\x1creduce_boxes_in_lowest_layer\x18\x05 \x01(\x08:\x04true')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -42,14 +42,14 @@ _SSDANCHORGENERATOR = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='min_scale', full_name='tf_detection.protos.SsdAnchorGenerator.min_scale', index=1,
       number=2, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(0.2),
+      has_default_value=True, default_value=0.2,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='max_scale', full_name='tf_detection.protos.SsdAnchorGenerator.max_scale', index=2,
       number=3, type=2, cpp_type=6, label=1,
-      has_default_value=True, default_value=float(0.95),
+      has_default_value=True, default_value=0.95,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -75,16 +75,14 @@ _SSDANCHORGENERATOR = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=80,
-  serialized_end=239,
+  serialized_start=72,
+  serialized_end=231,
 )
 
 DESCRIPTOR.message_types_by_name['SsdAnchorGenerator'] = _SSDANCHORGENERATOR
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SsdAnchorGenerator = _reflection.GeneratedProtocolMessageType('SsdAnchorGenerator', (_message.Message,), dict(
   DESCRIPTOR = _SSDANCHORGENERATOR,

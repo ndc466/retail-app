@@ -13,17 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from tf_detection.protos import grid_anchor_generator_pb2 as object__detection_dot_protos_dot_grid__anchor__generator__pb2
-from tf_detection.protos import ssd_anchor_generator_pb2 as object__detection_dot_protos_dot_ssd__anchor__generator__pb2
+import tf_detection.protos.grid_anchor_generator_pb2
+import tf_detection.protos.ssd_anchor_generator_pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tf_detection/protos/anchor_generator.proto',
   package='tf_detection.protos',
-  syntax='proto2',
-  serialized_pb=_b('\n.tf_detection/protos/anchor_generator.proto\x12\x17tf_detection.protos\x1a\x33tf_detection/protos/grid_anchor_generator.proto\x1a\x32tf_detection/protos/ssd_anchor_generator.proto\"\xc7\x01\n\x0f\x41nchorGenerator\x12M\n\x15grid_anchor_generator\x18\x01 \x01(\x0b\x32,.tf_detection.protos.GridAnchorGeneratorH\x00\x12K\n\x14ssd_anchor_generator\x18\x02 \x01(\x0b\x32+.tf_detection.protos.SsdAnchorGeneratorH\x00\x42\x18\n\x16\x61nchor_generator_oneof')
+  serialized_pb=_b('\n*tf_detection/protos/anchor_generator.proto\x12\x13tf_detection.protos\x1a/tf_detection/protos/grid_anchor_generator.proto\x1a.tf_detection/protos/ssd_anchor_generator.proto\"\xbf\x01\n\x0f\x41nchorGenerator\x12I\n\x15grid_anchor_generator\x18\x01 \x01(\x0b\x32(.tf_detection.protos.GridAnchorGeneratorH\x00\x12G\n\x14ssd_anchor_generator\x18\x02 \x01(\x0b\x32\'.tf_detection.protos.SsdAnchorGeneratorH\x00\x42\x18\n\x16\x61nchor_generator_oneof')
   ,
-  dependencies=[object__detection_dot_protos_dot_grid__anchor__generator__pb2.DESCRIPTOR,object__detection_dot_protos_dot_ssd__anchor__generator__pb2.DESCRIPTOR,])
+  dependencies=[tf_detection.protos.grid_anchor_generator_pb2.DESCRIPTOR,tf_detection.protos.ssd_anchor_generator_pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -57,19 +57,18 @@ _ANCHORGENERATOR = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
       name='anchor_generator_oneof', full_name='tf_detection.protos.AnchorGenerator.anchor_generator_oneof',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=181,
-  serialized_end=380,
+  serialized_start=165,
+  serialized_end=356,
 )
 
-_ANCHORGENERATOR.fields_by_name['grid_anchor_generator'].message_type = object__detection_dot_protos_dot_grid__anchor__generator__pb2._GRIDANCHORGENERATOR
-_ANCHORGENERATOR.fields_by_name['ssd_anchor_generator'].message_type = object__detection_dot_protos_dot_ssd__anchor__generator__pb2._SSDANCHORGENERATOR
+_ANCHORGENERATOR.fields_by_name['grid_anchor_generator'].message_type = tf_detection.protos.grid_anchor_generator_pb2._GRIDANCHORGENERATOR
+_ANCHORGENERATOR.fields_by_name['ssd_anchor_generator'].message_type = tf_detection.protos.ssd_anchor_generator_pb2._SSDANCHORGENERATOR
 _ANCHORGENERATOR.oneofs_by_name['anchor_generator_oneof'].fields.append(
   _ANCHORGENERATOR.fields_by_name['grid_anchor_generator'])
 _ANCHORGENERATOR.fields_by_name['grid_anchor_generator'].containing_oneof = _ANCHORGENERATOR.oneofs_by_name['anchor_generator_oneof']
@@ -77,7 +76,6 @@ _ANCHORGENERATOR.oneofs_by_name['anchor_generator_oneof'].fields.append(
   _ANCHORGENERATOR.fields_by_name['ssd_anchor_generator'])
 _ANCHORGENERATOR.fields_by_name['ssd_anchor_generator'].containing_oneof = _ANCHORGENERATOR.oneofs_by_name['anchor_generator_oneof']
 DESCRIPTOR.message_types_by_name['AnchorGenerator'] = _ANCHORGENERATOR
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 AnchorGenerator = _reflection.GeneratedProtocolMessageType('AnchorGenerator', (_message.Message,), dict(
   DESCRIPTOR = _ANCHORGENERATOR,

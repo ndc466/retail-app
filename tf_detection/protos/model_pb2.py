@@ -13,17 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from tf_detection.protos import faster_rcnn_pb2 as object__detection_dot_protos_dot_faster__rcnn__pb2
-from tf_detection.protos import ssd_pb2 as object__detection_dot_protos_dot_ssd__pb2
+import tf_detection.protos.faster_rcnn_pb2
+import tf_detection.protos.ssd_pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='tf_detection/protos/model.proto',
   package='tf_detection.protos',
-  syntax='proto2',
-  serialized_pb=_b('\n#tf_detection/protos/model.proto\x12\x17tf_detection.protos\x1a)tf_detection/protos/faster_rcnn.proto\x1a!tf_detection/protos/ssd.proto\"\x82\x01\n\x0e\x44\x65tectionModel\x12:\n\x0b\x66\x61ster_rcnn\x18\x01 \x01(\x0b\x32#.tf_detection.protos.FasterRcnnH\x00\x12+\n\x03ssd\x18\x02 \x01(\x0b\x32\x1c.tf_detection.protos.SsdH\x00\x42\x07\n\x05model')
+  serialized_pb=_b('\n\x1ftf_detection/protos/model.proto\x12\x13tf_detection.protos\x1a%tf_detection/protos/faster_rcnn.proto\x1a\x1dtf_detection/protos/ssd.proto\"z\n\x0e\x44\x65tectionModel\x12\x36\n\x0b\x66\x61ster_rcnn\x18\x01 \x01(\x0b\x32\x1f.tf_detection.protos.FasterRcnnH\x00\x12\'\n\x03ssd\x18\x02 \x01(\x0b\x32\x18.tf_detection.protos.SsdH\x00\x42\x07\n\x05model')
   ,
-  dependencies=[object__detection_dot_protos_dot_faster__rcnn__pb2.DESCRIPTOR,object__detection_dot_protos_dot_ssd__pb2.DESCRIPTOR,])
+  dependencies=[tf_detection.protos.faster_rcnn_pb2.DESCRIPTOR,tf_detection.protos.ssd_pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -57,19 +57,18 @@ _DETECTIONMODEL = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
     _descriptor.OneofDescriptor(
       name='model', full_name='tf_detection.protos.DetectionModel.model',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=143,
-  serialized_end=273,
+  serialized_start=126,
+  serialized_end=248,
 )
 
-_DETECTIONMODEL.fields_by_name['faster_rcnn'].message_type = object__detection_dot_protos_dot_faster__rcnn__pb2._FASTERRCNN
-_DETECTIONMODEL.fields_by_name['ssd'].message_type = object__detection_dot_protos_dot_ssd__pb2._SSD
+_DETECTIONMODEL.fields_by_name['faster_rcnn'].message_type = tf_detection.protos.faster_rcnn_pb2._FASTERRCNN
+_DETECTIONMODEL.fields_by_name['ssd'].message_type = tf_detection.protos.ssd_pb2._SSD
 _DETECTIONMODEL.oneofs_by_name['model'].fields.append(
   _DETECTIONMODEL.fields_by_name['faster_rcnn'])
 _DETECTIONMODEL.fields_by_name['faster_rcnn'].containing_oneof = _DETECTIONMODEL.oneofs_by_name['model']
@@ -77,7 +76,6 @@ _DETECTIONMODEL.oneofs_by_name['model'].fields.append(
   _DETECTIONMODEL.fields_by_name['ssd'])
 _DETECTIONMODEL.fields_by_name['ssd'].containing_oneof = _DETECTIONMODEL.oneofs_by_name['model']
 DESCRIPTOR.message_types_by_name['DetectionModel'] = _DETECTIONMODEL
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 DetectionModel = _reflection.GeneratedProtocolMessageType('DetectionModel', (_message.Message,), dict(
   DESCRIPTOR = _DETECTIONMODEL,
