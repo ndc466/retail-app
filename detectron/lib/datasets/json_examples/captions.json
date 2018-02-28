@@ -1,0 +1,36 @@
+{
+    "info": {
+        "contributor": "COCO Consortium",
+        "date_created": "2017/09/01",
+        "description": "COCO 2014 Dataset",
+        "url": "http://cocodataset.org",
+        "version": "1.0",
+        "year": 2014
+    },
+    "images": [
+        {
+            "coco_url": "http://images.cocodataset.org/val2014/COCO_val2014_000000391895.jpg",
+            "date_captured": "2013-11-14 11:18:45",
+            "file_name": "COCO_val2014_000000391895.jpg",
+            "flickr_url": "http://farm9.staticflickr.com/8186/8119368305_4e622c8349_z.jpg",
+            "height": 360,
+            "id": 391895,
+            "license": 1,
+            "width": 640
+        }
+    ],
+    "licenses": [
+        {
+            "id": 1,
+            "name": "No known copyright restrictions",
+            "url": "https://oracle.com"
+        }
+    ],
+    "annotations": [
+        {
+            "caption": "A bicycle replica with a clock as the front wheel.",
+            "id": 37,
+            "image_id": 203564
+        }
+    ]
+}
