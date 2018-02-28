@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""object_detection_evaluation module.
+"""tf_detection_evaluation module.
 
 ObjectDetectionEvaluation is a class which manages ground truth information of a
 object detection dataset, and computes frequently used detection metrics such as
@@ -31,8 +31,8 @@ Note: This module operates on numpy boxes and box lists.
 import logging
 import numpy as np
 
-from object_detection.utils import metrics
-from object_detection.utils import per_image_evaluation
+from tf_detection.utils import metrics
+from tf_detection.utils import per_image_evaluation
 
 
 class ObjectDetectionEvaluation(object):
@@ -147,7 +147,7 @@ class ObjectDetectionEvaluation(object):
       groundtruth_class_labels = np.array([], dtype=int)
       groundtruth_is_difficult_list = np.array([], dtype=bool)
     scores, tp_fp_labels, is_class_correctly_detected_in_image = (
-        self.per_image_eval.compute_object_detection_metrics(
+        self.per_image_eval.compute_tf_detection_metrics(
             detected_boxes, detected_scores, detected_class_labels,
             groundtruth_boxes, groundtruth_class_labels,
             groundtruth_is_difficult_list))

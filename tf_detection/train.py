@@ -54,13 +54,13 @@ from google.protobuf import text_format
 
 sys.path.append('..')
 
-from object_detection import trainer
-from object_detection.builders import input_reader_builder
-from object_detection.builders import model_builder
-from object_detection.protos import input_reader_pb2
-from object_detection.protos import model_pb2
-from object_detection.protos import pipeline_pb2
-from object_detection.protos import train_pb2
+from tf_detection import trainer
+from tf_detection.builders import input_reader_builder
+from tf_detection.builders import model_builder
+from tf_detection.protos import input_reader_pb2
+from tf_detection.protos import model_pb2
+from tf_detection.protos import pipeline_pb2
+from tf_detection.protos import train_pb2
 
 
 tf.logging.set_verbosity(tf.logging.INFO)

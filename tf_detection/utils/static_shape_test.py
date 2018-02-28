@@ -13,11 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.static_shape."""
+"""Tests for tf_detection.utils.static_shape."""
 
 import tensorflow as tf
 
-from object_detection.utils import static_shape
+from tf_detection.utils import static_shape
 
 
 class StaticShapeTest(tf.test.TestCase):

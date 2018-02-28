@@ -71,8 +71,8 @@ import sys, os, shutil
 from google.protobuf import text_format
 
 sys.path.append('..')
-from object_detection import exporter
-from object_detection.protos import pipeline_pb2
+from tf_detection import exporter
+from tf_detection.protos import pipeline_pb2
 
 slim = tf.contrib.slim
 

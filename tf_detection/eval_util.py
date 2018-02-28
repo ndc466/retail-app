@@ -23,9 +23,9 @@ import time
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import label_map_util
-from object_detection.utils import object_detection_evaluation
-from object_detection.utils import visualization_utils as vis_utils
+from tf_detection.utils import label_map_util
+from tf_detection.utils import tf_detection_evaluation
+from tf_detection.utils import visualization_utils as vis_utils
 
 slim = tf.contrib.slim
 
@@ -121,7 +121,7 @@ def evaluate_detection_results_pascal_voc(result_lists,
   else:
     image_ids = range(num_results)
 
-  evaluator = object_detection_evaluation.ObjectDetectionEvaluation(
+  evaluator = tf_detection_evaluation.ObjectDetectionEvaluation(
       num_classes, matching_iou_threshold=iou_thres)
 
   difficult_lists = None

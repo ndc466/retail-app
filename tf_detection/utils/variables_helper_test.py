@@ -13,12 +13,12 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.variables_helper."""
+"""Tests for tf_detection.utils.variables_helper."""
 import os
 
 import tensorflow as tf
 
-from object_detection.utils import variables_helper
+from tf_detection.utils import variables_helper
 
 
 class FilterVariablesTest(tf.test.TestCase):

@@ -13,19 +13,19 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.meta_architectures.ssd_meta_arch."""
+"""Tests for tf_detection.meta_architectures.ssd_meta_arch."""
 import functools
 import numpy as np
 import tensorflow as tf
 
 from tensorflow.python.training import saver as tf_saver
-from object_detection.core import anchor_generator
-from object_detection.core import box_list
-from object_detection.core import losses
-from object_detection.core import post_processing
-from object_detection.core import region_similarity_calculator as sim_calc
-from object_detection.meta_architectures import ssd_meta_arch
-from object_detection.utils import test_utils
+from tf_detection.core import anchor_generator
+from tf_detection.core import box_list
+from tf_detection.core import losses
+from tf_detection.core import post_processing
+from tf_detection.core import region_similarity_calculator as sim_calc
+from tf_detection.meta_architectures import ssd_meta_arch
+from tf_detection.utils import test_utils
 
 slim = tf.contrib.slim
 

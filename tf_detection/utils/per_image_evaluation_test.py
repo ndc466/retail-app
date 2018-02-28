@@ -13,12 +13,12 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.per_image_evaluation."""
+"""Tests for tf_detection.utils.per_image_evaluation."""
 
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import per_image_evaluation
+from tf_detection.utils import per_image_evaluation
 
 
 class SingleClassTpFpWithDifficultBoxesTest(tf.test.TestCase):
@@ -145,7 +145,7 @@ class MultiClassesTpFpTest(tf.test.TestCase):
     groundtruth_boxes = np.array([[0, 0, 1, 1], [0, 0, 3.5, 3.5]], dtype=float)
     groundtruth_class_labels = np.array([0, 2], dtype=int)
     groundtruth_groundtruth_is_difficult_list = np.zeros(2, dtype=float)
-    scores, tp_fp_labels, _ = eval1.compute_object_detection_metrics(
+    scores, tp_fp_labels, _ = eval1.compute_tf_detection_metrics(
         detected_boxes, detected_scores, detected_class_labels,
         groundtruth_boxes, groundtruth_class_labels,
         groundtruth_groundtruth_is_difficult_list)

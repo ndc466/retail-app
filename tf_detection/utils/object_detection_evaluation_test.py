@@ -13,19 +13,19 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.object_detection_evaluation."""
+"""Tests for tf_detection.utils.tf_detection_evaluation."""
 
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import object_detection_evaluation
+from tf_detection.utils import tf_detection_evaluation
 
 
 class ObjectDetectionEvaluationTest(tf.test.TestCase):
 
   def setUp(self):
     num_groundtruth_classes = 3
-    self.od_eval = object_detection_evaluation.ObjectDetectionEvaluation(
+    self.od_eval = tf_detection_evaluation.ObjectDetectionEvaluation(
         num_groundtruth_classes)
 
     image_key1 = "img1"

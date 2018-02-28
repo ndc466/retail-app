@@ -13,11 +13,11 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.utils.shape_utils."""
+"""Tests for tf_detection.utils.shape_utils."""
 
 import tensorflow as tf
 
-from object_detection.utils import shape_utils
+from tf_detection.utils import shape_utils
 
 
 class UtilTest(tf.test.TestCase):

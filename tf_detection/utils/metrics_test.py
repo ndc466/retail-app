@@ -13,12 +13,12 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Tests for object_detection.metrics."""
+"""Tests for tf_detection.metrics."""
 
 import numpy as np
 import tensorflow as tf
 
-from object_detection.utils import metrics
+from tf_detection.utils import metrics
 
 
 class MetricsTest(tf.test.TestCase):

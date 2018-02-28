@@ -25,7 +25,7 @@ of final feature maps.
 """
 import collections
 import tensorflow as tf
-from object_detection.utils import ops
+from tf_detection.utils import ops
 slim = tf.contrib.slim
 
 
