@@ -1,9 +1,89 @@
 item {
     id: 1
-    name: "bb8"
+    name: "BarefootCabernetSauvignon"
 }
 
 item {
     id: 2
-    name: "marker"
+    name: "BarefootChardonnay"
+}
+
+item {
+    id: 3
+    name: "BarefootRiesling"
+}
+
+item {
+    id: 4
+    name: "BarefootSweetRed"
+}
+
+item {
+    id: 5
+    name: "Barefoot_Moscato"
+}
+
+item {
+    id: 6
+    name: "Barefoot_Pinot_Noir"
+}
+
+item {
+    id: 7
+    name: "Barefoot_Red_Moscato"
+}
+
+item {
+    id: 8
+    name: "CaliforniaRootCabernet"
+}
+
+item {
+    id: 9
+    name: "CaliforniaRootsMoscato"
+}
+
+item {
+    id: 10
+    name: "CaliforniaRootsRedBlend"
+}
+
+item {
+    id: 11
+    name: "California_Root_Chardonnay"
+}
+
+item {
+    id: 12
+    name: "California_Roots_Pinot_Grigio"
+}
+
+item {
+    id: 13
+    name: "JoelGott815CabernetSauvignon"
+}
+
+item {
+    id: 14
+    name: "JoelGottSauvignonBlanc2014"
+}
+
+item {
+    id: 15
+    name: "bailleysAlmande"
+}
+
+item {
+    id: 16
+    name: "skyyPineapple"
+}
+
+item {
+    id: 17
+    name: "sutterHomeBox"
+}
+
+item {
+    id: 18
+    name: "tincup"
 }
