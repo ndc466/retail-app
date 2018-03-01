@@ -16,7 +16,7 @@ from utils import label_map_util
 from utils import visualization_utils as vis_util
 
 parser = ConfigParser()
-pwd = os.path.dirname(__file__)
+pwd = os.getcwd()
 print('pwd: %s' % (pwd))
 parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
 DEBUG = bool(parser.get("ENV", "DEBUG"))
