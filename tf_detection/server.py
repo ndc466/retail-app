@@ -17,7 +17,7 @@ from utils import visualization_utils as vis_util
 
 parser = ConfigParser()
 pwd = os.getcwd()
-print('pwd: %s' % (pwd))
+#print('pwd: %s' % (pwd))
 parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
 DEBUG = bool(parser.get("ENV", "DEBUG"))
 HOST = str(parser.get("ENV", "HOST"))
