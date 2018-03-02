@@ -17,15 +17,18 @@ from utils import visualization_utils as vis_util
 
 import products_api
 
-#parser = ConfigParser()
-pwd = os.path.dirname(__file__)
-#parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
-#DEBUG = bool(parser.get("ENV", "DEBUG"))
-#HOST = str(parser.get("ENV", "HOST"))
-#PORT = int(parser.get("ENV", "PORT"))
-DEBUG = True
-HOST = '0.0.0.0'
-PORT = 8080
+DEBUG = False
+
+if DEBUG:
+    HOST = '0.0.0.0'
+    PORT = 8080
+else:
+    parser = ConfigParser()
+    pwd = os.path.dirname(__file__)
+    parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
+    DEBUG = bool(parser.get("ENV", "DEBUG"))
+    HOST = str(parser.get("ENV", "HOST"))
+    PORT = int(parser.get("ENV", "PORT"))
 
 app = Flask(__name__)
 app.debug = DEBUG
