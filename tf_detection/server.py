@@ -17,12 +17,15 @@ from utils import visualization_utils as vis_util
 
 import products_api
 
-parser = ConfigParser()
+#parser = ConfigParser()
 pwd = os.path.dirname(__file__)
-parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
-DEBUG = bool(parser.get("ENV", "DEBUG"))
-HOST = str(parser.get("ENV", "HOST"))
-PORT = int(parser.get("ENV", "PORT"))
+#parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
+#DEBUG = bool(parser.get("ENV", "DEBUG"))
+#HOST = str(parser.get("ENV", "HOST"))
+#PORT = int(parser.get("ENV", "PORT"))
+DEBUG = True
+HOST = '0.0.0.0'
+PORT = 8080
 
 app = Flask(__name__)
 app.debug = DEBUG
@@ -147,7 +150,7 @@ def detect_upload():
 
         # image processing
         image = Image.open(file)
-        products = products_api.get_objects(image, threshold)
+        products = products_api.get_products(image, threshold)
         return products
     except Exception as e:
         print('POST /image error: %e' % e)
