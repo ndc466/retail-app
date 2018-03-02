@@ -60,21 +60,23 @@ def get_products(image, threshold=0.1):
         [detection_boxes, detection_scores, detection_classes, num_detections],
         feed_dict={image_tensor: image_np_expanded})
 
-    classes = np.squeeze(classes).astype(np.int32)
+
+    
+    img = Image.fromarray(image_np)
+    width, height = img.size
+    classes = classes[0]
+    boxes = boxes[0]
+    scores = scores[0]
+    dclasses = [category_index.get(value) for index,value in enumerate(classes) if scores[index] > 0.3]
+    boxes = boxes[:len(dclasses)]
+
+    """classes = np.squeeze(classes).astype(np.int32)
     scores = np.squeeze(scores)
     boxes = np.squeeze(boxes)
-
     obj_above_thresh = sum(n > threshold for n in scores)
     print("detected %s objects in image above a %s score" % (obj_above_thresh, threshold))
-
+    
     output = []
-    # Add some metadata to the output
-    item = Product()
-    item.version = "0.0.1"
-    item.numObjects = str(obj_above_thresh)
-    item.threshold = str(threshold)
-    output.append(item)
-
     for c in range(0, len(classes)):
         class_name = category_index[classes[c]]['name']
         if scores[c] >= threshold:      # only return confidences equal or greater than the threshold
@@ -87,13 +89,22 @@ def get_products(image, threshold=0.1):
             item.x = str(boxes[c][1])
             item.height = str(boxes[c][2])
             item.width = str(boxes[c][3])
-            output.append(item)
-    print('\n')
-    for ob in output:
-        print(ob.__dict__)
-        print(type(ob.__dict__))
-        test = json.dumps(ob.__dict__)
-    print('\n')
-    output = [ob.__dict__ for ob in output]
-    print(output)
-    return output
+            output.append(item)"""
+
+    for i, box in enumerate(boxes):
+        dclasses[i]['ymin'] = box[0]*height
+        dclasses[i]['xmin'] = box[1]*width
+        dclasses[i]['ymax'] = box[2]*height
+        dclasses[i]['xmax'] = box[3]*width
+        dclasses[i]['score'] = str(scores[i])
+
+    # Add some metadata to the output
+    item = Product()
+    item.version = "0.0.1"
+    item.numObjects = str(len(dclasses))
+    item.threshold = str(threshold)
+    dclasses.append(item.__dict__)
+
+    #output = [ob.__dict__ for ob in output]
+    print(dclasses)
+    return dclasses
