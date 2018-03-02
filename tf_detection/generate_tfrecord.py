@@ -96,16 +96,16 @@ def generate_tfrecord(split):
     gb = df.groupby('filename')
     grouped = [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]
 
-    multipart_upload_details = models.CreateMultipartUploadDetails()
+    """multipart_upload_details = models.CreateMultipartUploadDetails()
     multipart_upload_details.object = split+'.record'
     multipart_upload = object_storage.create_multipart_upload(namespace, 'tfrecords', multipart_upload_details)
     upload_id = multipart_upload.data.upload_id
     etags = []
     parts_to_commit = []
-    parts_to_exclude = []
+    parts_to_exclude = []"""
     for ID, group in enumerate(grouped):
         tf_example = create_tf_example(group)
-        part = object_storage.upload_part(namespace, 'tfrecords', split+'.record', upload_id, ID+1, tf_example.SerializeToString())
+        """part = object_storage.upload_part(namespace, 'tfrecords', split+'.record', upload_id, ID+1, tf_example.SerializeToString())
         detail = models.CommitMultipartUploadPartDetails()
         detail.part_num = ID+1
         if 'etag' in part.headers:
@@ -113,12 +113,12 @@ def generate_tfrecord(split):
             parts_to_commit.append(detail)
         else:
             print('Part %s has no ETag' % (ID+1))
-            parts_to_exclude.append(ID+1)
+            parts_to_exclude.append(ID+1)"""
         writer.write(tf_example.SerializeToString())
-    commit_details = models.CommitMultipartUploadDetails()
+    """commit_details = models.CommitMultipartUploadDetails()
     commit_details.parts_to_commit = parts_to_commit
     commit_details.parts_to_exclude = parts_to_exclude
-    res = object_storage.commit_multipart_upload(namespace, 'tfrecords', split+'.record', upload_id, commit_details)
+    res = object_storage.commit_multipart_upload(namespace, 'tfrecords', split+'.record', upload_id, commit_details)"""
     writer.close()
     #output_path = os.path.join(os.getcwd(), "data/"+split_type+".record")
     print('Successfully created the %s TFRecord' % (split))

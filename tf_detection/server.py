@@ -17,7 +17,7 @@ from utils import visualization_utils as vis_util
 
 import products_api
 
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     HOST = '0.0.0.0'
@@ -30,10 +30,11 @@ else:
     HOST = str(parser.get("ENV", "HOST"))
     PORT = int(parser.get("ENV", "PORT"))
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 app = Flask(__name__)
 app.debug = DEBUG
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 """# Path to frozen detection graph. This is the actual model that is used for the object detection.
 PATH_TO_CKPT = '../../frozen_inference_graph.pb'
 
@@ -65,6 +66,14 @@ def load_image_into_numpy_array(image):
     rgbValues = np.array(image.getdata())
     if rgbValues.shape[1] == 4: rgbValues = np.delete(rgbValues, 3, 1)
     return rgbValues.reshape((im_height, im_width, 3)).astype(np.uint8)"""
+
+# for CORS
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST') # Put any other methods you need here
+    return response
 
 @app.route('/')
 def index():
@@ -143,7 +152,7 @@ def detect_upload():
             "success": False,
             "message": "File corrupted or file type not allowed."
         })
-    try:
+    """try:
         # Set an image confidence threshold value to limit returned data
         threshold = request.form.get('threshold')
         if threshold is None:
@@ -153,11 +162,21 @@ def detect_upload():
 
         # image processing
         image = Image.open(file)
-        products = products_api.get_products(image, threshold)
+        #products = products_api.get_products(image, threshold)
+        products = products_api.get_products(image)
         return products
     except Exception as e:
         print('POST /image error: %e' % e)
-        return e
+        return e"""
+    # image processing
+    image = Image.open(file)
+    #products = products_api.get_products(image, threshold)
+    products = products_api.get_products(image)
+    print('\n%s\n%s\n' % (type(products), products))
+    return jsonify({
+        "success": True,
+        "data": products
+    })
 
 @app.route('/test')
 def test():
