@@ -44,14 +44,14 @@ with detection_graph.as_default():
         num_detections = detection_graph.get_tensor_by_name('num_detections:0')
 
 # added to put object in JSON
-class Products(object):
+class Product(object):
     def __init__(self):
         self.name="Product Detection REST API"
 
     def toJSON(self):
         return json.dumps(self.__dict__)
 
-def get_products(image, threshold=0.5):
+def get_products(image, threshold=0.3):
     image_np = load_image_into_numpy_array(image)
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -69,25 +69,31 @@ def get_products(image, threshold=0.5):
 
     output = []
     # Add some metadata to the output
-    item = Object()
+    item = Product()
     item.version = "0.0.1"
-    item.numObjects = obj_above_thresh
-    item.threshold = threshold
+    item.numObjects = str(obj_above_thresh)
+    item.threshold = str(threshold)
     output.append(item)
 
     for c in range(0, len(classes)):
         class_name = category_index[classes[c]]['name']
         if scores[c] >= threshold:      # only return confidences equal or greater than the threshold
             print(" object %s - score: %s, coordinates: %s" % (class_name, scores[c], boxes[c]))
-            item = Object()
-            item.name = 'Object'
+            item = Product()
+            item.name = 'Product'
             item.class_name = class_name
-            item.score = float(scores[c])
-            item.y = float(boxes[c][0])
-            item.x = float(boxes[c][1])
-            item.height = float(boxes[c][2])
-            item.width = float(boxes[c][3])
+            item.score = str(scores[c])
+            item.y = str(boxes[c][0])
+            item.x = str(boxes[c][1])
+            item.height = str(boxes[c][2])
+            item.width = str(boxes[c][3])
             output.append(item)
-    outputJson = json.dumps([ob.__dict__ for ob in output])
-    print(outputJson)
-    return outputJson
+    print('\n')
+    for ob in output:
+        print(ob.__dict__)
+        print(type(ob.__dict__))
+        test = json.dumps(ob.__dict__)
+    print('\n')
+    output = [ob.__dict__ for ob in output]
+    print(output)
+    return output
