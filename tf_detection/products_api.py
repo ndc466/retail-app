@@ -1,4 +1,4 @@
-import os, io, sys, base64
+import os, io, sys, base64, json
 import urllib, tarfile, zipfile
 import six.moves.urllib as urllib
 import tensorflow as tf
@@ -89,4 +89,5 @@ def get_products(image, threshold=0.5):
             item.width = float(boxes[c][3])
             output.append(item)
     outputJson = json.dumps([ob.__dict__ for ob in output])
+    print(outputJson)
     return outputJson
