@@ -15,6 +15,8 @@ sys.path.append("..")
 from utils import label_map_util
 from utils import visualization_utils as vis_util
 
+import products_api
+
 parser = ConfigParser()
 pwd = os.path.dirname(__file__)
 parser.read(os.path.join(os.path.abspath(pwd), "../../", "settings.conf"))
@@ -25,7 +27,8 @@ PORT = int(parser.get("ENV", "PORT"))
 app = Flask(__name__)
 app.debug = DEBUG
 
-# Path to frozen detection graph. This is the actual model that is used for the object detection.
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+"""# Path to frozen detection graph. This is the actual model that is used for the object detection.
 PATH_TO_CKPT = '../../frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
@@ -55,47 +58,11 @@ def load_image_into_numpy_array(image):
     (im_width, im_height) = image.size
     rgbValues = np.array(image.getdata())
     if rgbValues.shape[1] == 4: rgbValues = np.delete(rgbValues, 3, 1)
-    return rgbValues.reshape((im_height, im_width, 3)).astype(np.uint8)
+    return rgbValues.reshape((im_height, im_width, 3)).astype(np.uint8)"""
 
-def gen():
-    """Video streaming generator function."""
-    with detection_graph.as_default():
-        with tf.Session(graph=detection_graph) as sess:    
-            while True:
-                image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
-                detection_boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
-                detection_scores = detection_graph.get_tensor_by_name('detection_scores:0')
-                detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
-                num_detections = detection_graph.get_tensor_by_name('num_detections:0')
-
-                ret, image_np = cap.read()
-                # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-                image_np_expanded = np.expand_dims(image_np, axis=0)
-                # Actual detection.
-                (boxes, scores, classes, num_detections) = sess.run([detection_boxes, detection_scores, detection_classes, num_detections], 
-                feed_dict={image_tensor: image_np_expanded})
-                # Visualization of the results of a detection.
-                vis_util.visualize_boxes_and_labels_on_image_array(
-                    image_np,
-                    np.squeeze(boxes),
-                    np.squeeze(classes).astype(np.int32),
-                    np.squeeze(scores),
-                    category_index,
-                    use_normalized_coordinates=True,
-                    line_thickness=8)
-                cv2.imwrite('output_stream.jpg', cv2.resize(image_np, (800,600)))
-                yield (b'--frame\r\n'
-                    b'Content-Type: image/jpeg\r\n\r\n' + open('output_stream.jpg', 'rb').read() + b'\r\n')
-
-@app.route('/detection_stream')
-def detection_stream():
-    """Video streaming home page."""
-    return render_template('stream.html')
-
-@app.route('/video_feed')
-def video_feed():
-    """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/')
+def index():
+    return Response('Tensor Flow object detection')
 
 @app.route('/upload')
 def upload_file():
@@ -170,32 +137,32 @@ def detect_upload():
             "success": False,
             "message": "File corrupted or file type not allowed."
         })
-    with detection_graph.as_default():
-        with tf.Session(graph=detection_graph) as sess:
-            image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
-            detection_boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
-            detection_scores = detection_graph.get_tensor_by_name('detection_scores:0')
-            detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
-            num_detections = detection_graph.get_tensor_by_name('num_detections:0')
-            # image processing
-            image = Image.open(file)
-            image_np = load_image_into_numpy_array(image) # the array of the image is used later to prepare the result image with boxes and labels on it.
-            image_np_expanded = np.expand_dims(image_np, axis=0) # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-            # Actual detection.
-            (boxes, scores, classes, num) = sess.run([detection_boxes, detection_scores, detection_classes, num_detections],
-                                                    feed_dict={image_tensor: image_np_expanded})
-            # Visualization of the results of a detection.
-            vis_util.visualize_boxes_and_labels_on_image_array(
-                image_np,
-                np.squeeze(boxes),
-                np.squeeze(classes).astype(np.int32),
-                np.squeeze(scores),
-                category_index,
-                use_normalized_coordinates=True,
-                line_thickness=8)
-            im = Image.fromarray(image_np)
-            im.save("output_image."+ftype)
-            return send_file("./output_image."+ftype, mimetype='image/'+ftype)
+    try:
+        # Set an image confidence threshold value to limit returned data
+        threshold = request.form.get('threshold')
+        if threshold is None:
+            threshold = 0.5
+        else:
+            threshold = float(threshold)
+
+        # image processing
+        image = Image.open(file)
+        products = products_api.get_objects(image, threshold)
+        return products
+    except Exception as e:
+        print('POST /image error: %e' % e)
+        return e
+
+@app.route('/test')
+def test():
+ 
+    PATH_TO_TEST_IMAGES_DIR = 'object_detection/test_images'  # cwh
+    TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3)]
+ 
+    image = Image.open(TEST_IMAGE_PATHS[0])
+    products = products_api.get_objects(image)
+ 
+    return products
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=PORT)
+    app.run(host='0.0.0.0', port=PORT, debug=True)
