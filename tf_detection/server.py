@@ -17,7 +17,7 @@ from utils import visualization_utils as vis_util
 
 import products_api
 
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     HOST = '0.0.0.0'
