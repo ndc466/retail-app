@@ -99,12 +99,14 @@ ENV/
 
 tf_detection/output_graph/**
 !tf_detection/inference_graphs/frozen_inference_graph.pb
-tf_detection/data/*.record
+tf_detection/data/**
+tf_detection/output_graph/**
 tf_detection/images/**
 tf_detection/ssd_mobilenet_v1_coco_11_06_2017
 tf_detection/ssd_mobilenet_v1_coco_11_06_2017.tar.gz
 tf_detection/models/model/train/**
 tf_detection/models/model/eval/**
+
 detectron/lib/datasets/data
 detectron/lib/datasets/cityscapes
 detectron/lib/datasets/VOCdevkit-matlab-wrapper
