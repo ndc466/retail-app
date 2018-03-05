@@ -8,8 +8,8 @@ from PIL import Image
 sys.path.append("..")
 from utils import label_map_util
 
-PATH_TO_CKPT = '../../frozen_inference_graph.pb'
-PATH_TO_LABELS = '../../object_detection.pbtxt'
+PATH_TO_CKPT = './output_graph/frozen_inference_graph.pb'
+PATH_TO_LABELS = './data/object_detection.pbtxt'
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 NUM_CLASSES = len(label_map.ListFields()[0][1])
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
