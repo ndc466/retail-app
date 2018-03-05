@@ -4,7 +4,9 @@ const s = document.getElementById('objDetect');
 const sourceVideo = s.getAttribute("data-source");  //the source video to use
 const uploadWidth = s.getAttribute("data-uploadWidth") || 640; //the width of the upload file
 const mirror = s.getAttribute("data-mirror") || false; //mirror the boundary boxes
-const scoreThreshold = s.getAttribute("data-scoreThreshold") || 0.5;
+const scoreThreshold = s.getAttribute("data-scoreThreshold") || 0.2;
+const apiServer = s.getAttribute("data-apiServer") || window.location.origin + '/detect'; //the full TensorFlow Object Detection API server url
+
 
 //Video element selector
 v = document.getElementById(sourceVideo);
