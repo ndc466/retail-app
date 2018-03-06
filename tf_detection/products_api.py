@@ -51,7 +51,7 @@ class Product(object):
     def toJSON(self):
         return json.dumps(self.__dict__)
 
-def get_products(image, threshold=0.1):
+def get_products(image, threshold=0.01):
     image_np = load_image_into_numpy_array(image)
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -67,7 +67,7 @@ def get_products(image, threshold=0.1):
     classes = classes[0]
     boxes = boxes[0]
     scores = scores[0]
-    dclasses = [category_index.get(value) for index,value in enumerate(classes) if scores[index] > 0.3]
+    dclasses = [category_index.get(value) for index,value in enumerate(classes) if scores[index] > threshold]
     boxes = boxes[:len(dclasses)]
 
     """classes = np.squeeze(classes).astype(np.int32)
