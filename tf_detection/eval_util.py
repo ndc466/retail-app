@@ -24,7 +24,7 @@ import numpy as np
 import tensorflow as tf
 
 from tf_detection.utils import label_map_util
-from tf_detection.utils import tf_detection_evaluation
+from tf_detection.utils import object_detection_evaluation
 from tf_detection.utils import visualization_utils as vis_utils
 
 slim = tf.contrib.slim
