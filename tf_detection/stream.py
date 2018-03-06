@@ -49,7 +49,7 @@ def index():
 
 @app.route('/upload')
 def upload_file():
-    return render_template('upload.html', host=HOST)
+    return render_template('upload_ssl.html', host=HOST)
 
 @app.route("/output_label", methods=['GET', 'POST'])
 def detect():
@@ -163,4 +163,4 @@ def remote():
     return Response(open('./static/video.html').read(), mimetype="text/html")
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=PORT, debug=True, ssl_context='adhoc')
+    app.run(host=HOST, port=PORT, debug=True, ssl_context='adhoc')
