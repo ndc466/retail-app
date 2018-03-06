@@ -59,7 +59,7 @@ def load_image_into_numpy_array(image):
 def upload_file():
     return render_template('upload.html', host=HOST)
 
-@app.route("/detect", methods=['GET', 'POST'])
+@app.route("/detect_upload", methods=['GET', 'POST'])
 def detect():
     with detection_graph.as_default():
         with tf.Session(graph=detection_graph) as sess:
@@ -112,7 +112,7 @@ def detect():
 def stream():
     return render_template('webrtc.html', host=HOST)
 
-@app.route("/detect_upload", methods=['GET', 'POST'])
+@app.route("/detect", methods=['GET', 'POST'])
 def detect_upload():
     if 'file' not in request.files:
         flash('No file part')
