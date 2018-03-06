@@ -183,8 +183,7 @@ def detect_upload():
     products = products_api.get_products(image)
     print('\n%s\n%s\n' % (type(products), products))
     return jsonify({
-        "success": True,
-        "data": products
+        products
     })
 
 if __name__ == "__main__":
