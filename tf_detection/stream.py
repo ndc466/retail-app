@@ -34,6 +34,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
 app.debug = DEBUG
+app.secret_key = 'super secret key'
 
 # for CORS
 @app.after_request
