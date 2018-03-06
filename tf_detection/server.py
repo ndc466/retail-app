@@ -24,6 +24,7 @@ PORT = int(parser.get("ENV", "PORT"))
 
 app = Flask(__name__)
 app.debug = DEBUG
+app.secret_key = 'super secret key'
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 #PATH_TO_CKPT = './output_graph/frozen_inference_graph.pb'
