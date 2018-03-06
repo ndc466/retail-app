@@ -1,4 +1,4 @@
-import os, io, sys, base64
+import os, io, sys, base64, json
 import urllib, tarfile, zipfile
 import six.moves.urllib as urllib
 import tensorflow as tf
@@ -182,9 +182,11 @@ def detect_upload():
     #products = products_api.get_products(image, threshold)
     products = products_api.get_products(image)
     print('\n%s\n%s\n' % (type(products), products))
-    return jsonify({
-        products
-    })
+    return json.dumps(products)
+    """return jsonify({
+        "success": True,
+        "data": products
+    })"""
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8088)
