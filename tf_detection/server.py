@@ -159,12 +159,12 @@ def detection_output():
             im.save("output_image."+ftype)
             return send_file("./output_image."+ftype, mimetype='image/'+ftype)
 
-@app.route("/detect", methods=['GET', 'POST'])
+@app.route("/detect", methods=['POST'])
 def detect_upload():
-    if 'file' not in request.files:
+    if 'image' not in request.files:
         flash('No file part')
         return redirect(request.url)
-    file = request.files['file']
+    file = request.files['image']
     # if user does not select file, browser also
     # submit a empty part without filename
     if file.filename == '':
@@ -176,22 +176,6 @@ def detect_upload():
             "success": False,
             "message": "File corrupted or file type not allowed."
         })
-    """try:
-        # Set an image confidence threshold value to limit returned data
-        threshold = request.form.get('threshold')
-        if threshold is None:
-            threshold = 0.5
-        else:
-            threshold = float(threshold)
-
-        # image processing
-        image = Image.open(file)
-        #products = products_api.get_products(image, threshold)
-        products = products_api.get_products(image)
-        return products
-    except Exception as e:
-        print('POST /image error: %e' % e)
-        return e"""
     # image processing
     image = Image.open(file)
     #products = products_api.get_products(image, threshold)
