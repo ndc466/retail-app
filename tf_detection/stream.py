@@ -52,54 +52,6 @@ def index():
 def upload_file():
     return render_template('upload_ssl.html', host=HOST)
 
-@app.route("/output_label", methods=['GET', 'POST'])
-def detect():
-    with detection_graph.as_default():
-        with tf.Session(graph=detection_graph) as sess:
-            image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
-            detection_boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
-            detection_scores = detection_graph.get_tensor_by_name('detection_scores:0')
-            detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
-            num_detections = detection_graph.get_tensor_by_name('num_detections:0')
-
-            img64 = request.form['image']
-            msg = base64.b64decode(img64)
-            buf = io.BytesIO(msg)
-            img = Image.open(buf)
-            image_np = load_image_into_numpy_array(img)
-            image_np_expanded = np.expand_dims(image_np, axis=0)
-            # Actual detection.
-            (boxes, scores, classes, num) = sess.run(
-                [detection_boxes, detection_scores, detection_classes, num_detections],
-                feed_dict={image_tensor: image_np_expanded})
-            
-            # Visualization of the results of a detection.
-            vis_util.visualize_boxes_and_labels_on_image_array(
-                image_np,
-                np.squeeze(boxes),
-                np.squeeze(classes).astype(np.int32),
-                np.squeeze(scores),
-                category_index,
-                use_normalized_coordinates=True,
-                line_thickness=8)
-            img = Image.fromarray(image_np)
-            width, height = img.size
-            classes = classes[0]
-            boxes = boxes[0]
-            scores = scores[0]
-            dclasses = [category_index.get(value) for index,value in enumerate(classes) if scores[index] > 0.3]
-            boxes = boxes[:len(dclasses)]
-            for i, box in enumerate(boxes):
-                dclasses[i]['ymin'] = box[0]*height
-                dclasses[i]['xmin'] = box[1]*width
-                dclasses[i]['ymax'] = box[2]*height
-                dclasses[i]['xmax'] = box[3]*width
-            return jsonify({
-                "data": dclasses
-            })
-    #img.save("output_image.jpg"+ftype)
-    #return send_file("./output_image.jpg", mimetype='image/jpeg')
-
 @app.route('/stream.mjpg')
 def stream():
     return render_template('webrtc.html', host=HOST)
