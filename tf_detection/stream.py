@@ -163,4 +163,4 @@ def remote():
     return Response(open('./static/video.html').read(), mimetype="text/html")
 
 if __name__ == "__main__":
-    app.run(host=HOST, port=PORT, debug=True, ssl_context='adhoc')
+    app.run(host='0.0.0.0', port=PORT, debug=True, ssl_context='adhoc')
