@@ -114,7 +114,7 @@ def detect():
 def stream():
     return render_template('webrtc.html', host=HOST)
 
-@app.route("/detect", methods=['GET', 'POST'])
+@app.route("/detection_output", methods=['GET', 'POST'])
 def detect_upload():
     if 'file' not in request.files:
         flash('No file part')
@@ -157,6 +157,49 @@ def detect_upload():
             im = Image.fromarray(image_np)
             im.save("output_image."+ftype)
             return send_file("./output_image."+ftype, mimetype='image/'+ftype)
+
+@app.route("/detect", methods=['GET', 'POST'])
+def detect_upload():
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    # if user does not select file, browser also
+    # submit a empty part without filename
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    ftype = file.filename.split(".")[-1]
+    if file is None or ftype not in ALLOWED_EXTENSIONS:
+        return jsonify({
+            "success": False,
+            "message": "File corrupted or file type not allowed."
+        })
+    """try:
+        # Set an image confidence threshold value to limit returned data
+        threshold = request.form.get('threshold')
+        if threshold is None:
+            threshold = 0.5
+        else:
+            threshold = float(threshold)
+
+        # image processing
+        image = Image.open(file)
+        #products = products_api.get_products(image, threshold)
+        products = products_api.get_products(image)
+        return products
+    except Exception as e:
+        print('POST /image error: %e' % e)
+        return e"""
+    # image processing
+    image = Image.open(file)
+    #products = products_api.get_products(image, threshold)
+    products = products_api.get_products(image)
+    print('\n%s\n%s\n' % (type(products), products))
+    return jsonify({
+        "success": True,
+        "data": products
+    })
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8088)
