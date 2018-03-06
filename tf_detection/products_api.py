@@ -1,6 +1,4 @@
 import os, io, sys, base64, json
-import urllib, tarfile, zipfile
-import six.moves.urllib as urllib
 import tensorflow as tf
 import numpy as np
 from configparser import ConfigParser
@@ -62,8 +60,6 @@ def get_products(image, threshold=0.01):
     (boxes, scores, classes, num) = sess.run(
         [detection_boxes, detection_scores, detection_classes, num_detections],
         feed_dict={image_tensor: image_np_expanded})
-
-
     
     img = Image.fromarray(image_np)
     width, height = img.size

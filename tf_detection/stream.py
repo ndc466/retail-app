@@ -1,20 +1,10 @@
 import os, io, sys, base64
-import urllib, tarfile, zipfile
-import six.moves.urllib as urllib
-import tensorflow as tf
-import numpy as np
 from flask import Flask, request, jsonify, render_template
 from flask import Response, redirect, url_for, flash, send_file
 from configparser import ConfigParser
 from PIL import Image
 #from matplotlib import pyplot as plt
-import cv2
-cap = cv2.VideoCapture(0)
 # This is needed since the notebook is stored in the object_detection folder.
-sys.path.append("..")
-from utils import label_map_util
-from utils import visualization_utils as vis_util
-
 import products_api
 
 DEBUG = False
@@ -73,22 +63,6 @@ def detect_upload():
             "success": False,
             "message": "File corrupted or file type not allowed."
         })
-    """try:
-        # Set an image confidence threshold value to limit returned data
-        threshold = request.form.get('threshold')
-        if threshold is None:
-            threshold = 0.5
-        else:
-            threshold = float(threshold)
-
-        # image processing
-        image = Image.open(file)
-        #products = products_api.get_products(image, threshold)
-        products = products_api.get_products(image)
-        return products
-    except Exception as e:
-        print('POST /image error: %e' % e)
-        return e"""
     # image processing
     image = Image.open(file)
     #products = products_api.get_products(image, threshold)
