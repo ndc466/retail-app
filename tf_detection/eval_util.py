@@ -121,7 +121,7 @@ def evaluate_detection_results_pascal_voc(result_lists,
   else:
     image_ids = range(num_results)
 
-  evaluator = tf_detection_evaluation.ObjectDetectionEvaluation(
+  evaluator = object_detection_evaluation.ObjectDetectionEvaluation(
       num_classes, matching_iou_threshold=iou_thres)
 
   difficult_lists = None
