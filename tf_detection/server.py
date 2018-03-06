@@ -94,13 +94,14 @@ def detect():
             classes = classes[0]
             boxes = boxes[0]
             scores = scores[0]
-            dclasses = [category_index.get(value) for index,value in enumerate(classes) if scores[index] > 0.3]
+            dclasses = [category_index.get(value) for index,value in enumerate(classes) if scores[index] > 0.1]
             boxes = boxes[:len(dclasses)]
             for i, box in enumerate(boxes):
                 dclasses[i]['ymin'] = box[0]*height
                 dclasses[i]['xmin'] = box[1]*width
                 dclasses[i]['ymax'] = box[2]*height
                 dclasses[i]['xmax'] = box[3]*width
+            print(dclasses)
             return jsonify({
                 "data": dclasses
             })
