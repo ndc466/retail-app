@@ -26,12 +26,10 @@ app = Flask(__name__)
 app.debug = DEBUG
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
-PATH_TO_CKPT = '../../frozen_inference_graph.pb'
-
-# List of the strings that is used to add correct label for each box.
-#PATH_TO_LABELS = os.path.join('data', 'object_detection.pbtxt')
-PATH_TO_LABELS = '../../object_detection.pbtxt'
-NUM_CLASSES = 3
+PATH_TO_CKPT = './output_graph/frozen_inference_graph.pb'
+PATH_TO_LABELS = './data/object_detection.pbtxt'
+label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
+NUM_CLASSES = len(label_map.ListFields()[0][1])
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # ## Load a (frozen) Tensorflow model into memory.
@@ -159,43 +157,3 @@ def detect_upload():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=PORT)
-
-"""def gen():
-    """"Video streaming generator function.""""
-    with detection_graph.as_default():
-        with tf.Session(graph=detection_graph) as sess:    
-            while True:
-                image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
-                detection_boxes = detection_graph.get_tensor_by_name('detection_boxes:0')
-                detection_scores = detection_graph.get_tensor_by_name('detection_scores:0')
-                detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
-                num_detections = detection_graph.get_tensor_by_name('num_detections:0')
-
-                ret, image_np = cap.read()
-                # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-                image_np_expanded = np.expand_dims(image_np, axis=0)
-                # Actual detection.
-                (boxes, scores, classes, num_detections) = sess.run([detection_boxes, detection_scores, detection_classes, num_detections], 
-                feed_dict={image_tensor: image_np_expanded})
-                # Visualization of the results of a detection.
-                vis_util.visualize_boxes_and_labels_on_image_array(
-                    image_np,
-                    np.squeeze(boxes),
-                    np.squeeze(classes).astype(np.int32),
-                    np.squeeze(scores),
-                    category_index,
-                    use_normalized_coordinates=True,
-                    line_thickness=8)
-                cv2.imwrite('output_stream.jpg', cv2.resize(image_np, (800,600)))
-                yield (b'--frame\r\n'
-                    b'Content-Type: image/jpeg\r\n\r\n' + open('output_stream.jpg', 'rb').read() + b'\r\n')
-
-@app.route('/detection_stream')
-def detection_stream():
-    """"Video streaming home page.""""
-    return render_template('stream.html')
-
-@app.route('/video_feed')
-def video_feed():
-    """"Video streaming route. Put this in the src attribute of an img tag.""""
-    return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')"""
