@@ -115,7 +115,7 @@ def stream():
     return render_template('webrtc.html', host=HOST)
 
 @app.route("/detection_output", methods=['GET', 'POST'])
-def detect_upload():
+def detection_output():
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
