@@ -29,7 +29,7 @@ row_labels = json.loads(object_storage.get_object(namespace, 'training', 'row_la
 
 img_id = 1
 
-def add_to_json(split):
+def add_to_json(split, img_id):
     data = {
         "info": {
             "contributor": "Oracle",
@@ -81,7 +81,7 @@ def add_to_json(split):
         encoded_img = object_storage.get_object(namespace, split+'_images', row['filename']).data.content
         with open('../lib/datasets/data/target/target_' + split + '/' + row['filename']) as f:
             f.write(encoded_img)
-        img_id += 1
+        img_id+=1
     
     for row in row_labels:
         category = {}
@@ -91,19 +91,18 @@ def add_to_json(split):
         data['categories'].append(category)
     with open('../lib/datasets/data/target/annotations/target_' + split + '/' + '.json', 'wb') as f:
         json.dump(data, f)
-    print('Successfully created the %s TFRecord' % (split))
+    return img_id
 
 def main():
     """try:
         os.remove('./data/test.record')
         os.remove('./data/train.record')
     except Exception as e: pass"""
-    img_id = 1
     threads = []
+    img_id = 1
     for split in ['train', 'test']:
         #print('Generating %s.record file' % (split))
-        add_to_json(split)
+        img_id = add_to_json(split, img_id)
 
 if __name__ == '__main__':
-    img_id = 1
     main()
