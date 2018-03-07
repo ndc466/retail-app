@@ -89,7 +89,7 @@ def add_to_json(split, img_id):
         category['id'] = row_labels[row]
         category['supercategory'] = 'alcohol'
         data['categories'].append(category)
-    with open('../lib/datasets/data/target/annotations/target_' + split + '/' + '.json', 'wb') as f:
+    with open('../lib/datasets/data/target/annotations/target_' + split +'.json', 'wb') as f:
         json.dump(data, f)
     return img_id
 
