@@ -53,7 +53,7 @@ def add_to_json(split):
     df = pd.read_csv(io.BytesIO(labels))
     
     for index, row in df.iterrows():
-        image, annotation, categories = {}
+        image = annotation = categories = {}
         image['coco_url'] = ""
         image['date_captured'] = strftime("%Y-%m-%d %H:%M:%S", gmtime())
         image['file_name'] = row['filename']
