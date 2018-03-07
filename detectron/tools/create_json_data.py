@@ -77,7 +77,7 @@ def add_to_json(split, img_id):
         annotation['iscrowd'] = 0
 
         data['images'].append(image)
-        data['annotation'].append(annotation)
+        data['annotations'].append(annotation)
         encoded_img = object_storage.get_object(namespace, split+'_images', row['filename']).data.content
         with open('../lib/datasets/data/target/target_' + split + '/' + row['filename']) as f:
             f.write(encoded_img)
