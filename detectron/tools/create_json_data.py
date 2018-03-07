@@ -1,5 +1,3 @@
-import oci
-
 """
 Usage: ** deprecated **
   # From tensorflow/object_storage.models/
@@ -13,6 +11,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 import os, io, shutil, json, threading
+from time import gmtime, strftime
 import pandas as pd
 import numpy as np
 import oci
@@ -27,84 +26,72 @@ namespace = object_storage.get_namespace().data
 models = oci.object_storage.models
 
 row_labels = json.loads(object_storage.get_object(namespace, 'training', 'row_labels.json').data.content.decode())
-
-"""def create_tf_example(group):
-    encoded_img = object_storage.get_object(namespace, 'images', group.filename).data.content
-    #with tf.gfile.GFile(os.path.join(path, '{}'.format(group.filename)), 'rb') as fid:
-        #encoded_jpg = fid.read()
-    #encoded_jpg_io = io.BytesIO(encoded_jpg)
-    image = Image.open(io.BytesIO(encoded_img))
-    if group.filename.endswith('.png'): 
-        image = image.convert('RGB')
-    width, height = image.size
-
-    filename = group.filename.encode('utf8')
-    image_format = b'jpg'
-    xmins = []
-    xmaxs = []
-    ymins = []
-    ymaxs = []
-    classes_text = []
-    classes = []
-
-    for index, row in group.object.iterrows():
-        xmins.append(row['xmin'] / width)
-        xmaxs.append(row['xmax'] / width)
-        ymins.append(row['ymin'] / height)
-        ymaxs.append(row['ymax'] / height)
-        classes_text.append(row['class'].encode('utf8'))
-        classes.append(row_labels[row['class']])
-
-    tf_example = tf.train.Example(features=tf.train.Features(feature={
-        'image/height': dataset_util.int64_feature(height),
-        'image/width': dataset_util.int64_feature(width),
-        'image/filename': dataset_util.bytes_feature(filename),
-        'image/source_id': dataset_util.bytes_feature(filename),
-        'image/encoded': dataset_util.bytes_feature(encoded_img),
-        'image/format': dataset_util.bytes_feature(image_format),
-        'image/object/bbox/xmin': dataset_util.float_list_feature(xmins),
-        'image/object/bbox/xmax': dataset_util.float_list_feature(xmaxs),
-        'image/object/bbox/ymin': dataset_util.float_list_feature(ymins),
-        'image/object/bbox/ymax': dataset_util.float_list_feature(ymaxs),
-        'image/object/class/text': dataset_util.bytes_list_feature(classes_text),
-        'image/object/class/label': dataset_util.int64_list_feature(classes),
-    }))
-    return tf_example """
-        
-def generate_tfrecord(split):
+img_id = 1
+      
+def add_to_json(split):
+    data = {
+        "info": {
+            "contributor": "Oracle",
+            "date_created": "2018/03/07",
+            "description": "OCI Object Storage",
+            "url": "http://oracle.com",
+            "version": "1.0",
+            "year": 2018
+        },
+        "images": [],
+        "licenses": [
+            {
+                "id": 1,
+                "name": "No known copyright restrictions",
+                "url": "https://oracle.com"
+            }
+        ],
+        "annotations": [],
+        "categories": []   
+    }
     writer = tf.python_io.TFRecordWriter('data/'+split+'.record')
     labels = object_storage.get_object(namespace, split+'_images', 'image_labels.csv').data.content
     df = pd.read_csv(io.BytesIO(labels))
     
-    data = namedtuple('data', ['filename', 'object'])
-    gb = df.groupby('filename')
-    grouped = [data(filename, gb.get_group(x)) for filename, x in zip(gb.groups.keys(), gb.groups)]
+    for index, row in df.iterrows():
+        image, annotation, categories = {}
+        image['coco_url'] = ""
+        image['date_captured'] = strftime("%Y-%m-%d %H:%M:%S", gmtime())
+        image['file_name'] = row['filename']
+        image['flickr_url'] = ""
+        image['height'] = row['height']
+        image['id'] = img_id
+        image['license'] = 1
+        image['width'] = row['width']
 
-    multipart_upload_details = models.CreateMultipartUploadDetails()
-    multipart_upload_details.object = split+'.record'
-    multipart_upload = object_storage.create_multipart_upload(namespace, 'tfrecords', multipart_upload_details)
-    upload_id = multipart_upload.data.upload_id
-    etags = []
-    parts_to_commit = []
-    parts_to_exclude = []
-    for ID, group in enumerate(grouped):
-        tf_example = create_tf_example(group)
-        part = object_storage.upload_part(namespace, 'tfrecords', split+'.record', upload_id, ID+1, tf_example.SerializeToString())
-        detail = models.CommitMultipartUploadPartDetails()
-        detail.part_num = ID+1
-        if 'etag' in part.headers:
-            detail.etag = part.headers['etag']
-            parts_to_commit.append(detail)
-        else:
-            print('Part %s has no ETag' % (ID+1))
-            parts_to_exclude.append(ID+1)
-        writer.write(tf_example.SerializeToString())
-    commit_details = models.CommitMultipartUploadDetails()
-    commit_details.parts_to_commit = parts_to_commit
-    commit_details.parts_to_exclude = parts_to_exclude
-    res = object_storage.commit_multipart_upload(namespace, 'tfrecords', split+'.record', upload_id, commit_details)
-    writer.close()
-    #output_path = os.path.join(os.getcwd(), "data/"+split_type+".record")
+        annotation['area'] = row['width'] * row['height']
+        annotation['bbox'] = [
+            row['xmin'],
+            row['ymin'],
+            row['xmax'] - row['xmin'],
+            row['ymax'] - row['ymin']
+        ]
+        annotation['category_id'] = row_labels[row['class']]
+        annotation['id'] = img_id
+        annotation['image_id'] = img_id
+        annotation['iscrowd'] = 0
+
+        data['images'].append(image)
+        data['annotation'].append(annotation)
+        encoded_img = object_storage.get_object(namespace, split+'_images', row['filename']).data.content
+        with open('../lib/datasets/data/target/target_train/' + row['filename']) as f:
+            f.write(encoded_img)
+        img_id += 1
+    
+    for row in row_labels:
+        category = {}
+        category['name'] = row
+        category['id'] = row_labels[row]
+        category['supercategory'] = 'alcohol'
+        data['categories'].append(category)
+
+    with open('../lib/datasets/data/target/annotations/target_train.json', 'w') as f:
+        json.dump(data, f)
     print('Successfully created the %s TFRecord' % (split))
 
 def main():
@@ -115,11 +102,7 @@ def main():
     threads = []
     for split in ['train', 'test']:
         print('Generating %s.record file' % (split))
-        thread = threading.Thread(target=generate_tfrecord, args=(split,))
-        threads.append(thread)
-        thread.start()
-    for thread in threads:
-        thread.join()
+        add_to_json(split)
 
 if __name__ == '__main__':
     main()

@@ -20,15 +20,6 @@ object_storage = oci.object_storage.ObjectStorageClient(config)
 namespace = object_storage.get_namespace().data
 
 def clean():
-    print('Cleaning "models/model/train" and "models/model/eval" directories ...')
-    shutil.rmtree('./models/model/train')
-    os.mkdir('./models/model/train')
-    shutil.rmtree('./models/model/eval')
-    os.mkdir('./models/model/eval')
-    print('Cleaning config files')
-    try:
-        os.remove('./data/object_detection.pbtxt')
-        os.remove('./models/model/ssd_mobilenet_v1_coco.config')
     except Exception as e: pass
     print('Cleaning "all_labels.csv" from the "images" bucket ...')
     try:
@@ -45,12 +36,13 @@ def clean():
                 object_storage.delete_object(namespace, bucket, obj)
 
 def transfer_to_bucket(bucket, img_file):
-    try:
-        img = object_storage.get_object(namespace, 'images', img_file).data.content
-        res = object_storage.put_object(namespace, bucket, img_file, img)
-    except Exception as e:
-        print('Failed on train img_file: %s' % (img_file))
-        print(e)
+    while True:
+        try:
+            img = object_storage.get_object(namespace, 'images', img_file).data.content
+            res = object_storage.put_object(namespace, bucket, img_file, img)
+            return
+        except Exception as e:
+            print('.', sep='', end='', flush=True)
 
 def main():
     row_labels = {}
@@ -65,7 +57,7 @@ def main():
         obj_name = labels.replace('_labels.csv', '')
         
         row_labels[obj_name] = i+1
-        pbtxt += 'item {\n    id: '+str(i+1)+'\n    name: \"'+obj_name+'\"\n}\n\n'
+        #pbtxt += 'item {\n    id: '+str(i+1)+'\n    name: \"'+obj_name+'\"\n}\n\n'
     all_labels = df.to_csv(index=False).encode()
 
     # Update config files
@@ -86,15 +78,7 @@ def main():
     res = object_storage.put_object(namespace, 'test_images', 'image_labels.csv', test_labels)
 
     print('Writing config files to "training" bucket ...')
-    res = object_storage.put_object(namespace, 'training', 'object_detection.pbtxt', pbtxt)
-    res = object_storage.put_object(namespace, 'training', 'ssd_mobilenet_v1_coco.config', coco)
     res = object_storage.put_object(namespace, 'training', 'row_labels.json', row_labels)
-
-    print('Writing config files to "data/" and "models/model" directories, respectively ...')
-    with open('data/object_detection.pbtxt', 'wb') as f:
-        f.write(pbtxt)
-    with open('models/model/ssd_mobilenet_v1_coco.config', 'wb') as f:
-        f.write(coco)
 
     # Write the corresponding image files to the Train and Test buckets
     """print('Writing %s objects to "train_images" bucket ...' % (len(train)))
