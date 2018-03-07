@@ -52,7 +52,7 @@ class Product(object):
     def toJSON(self):
         return json.dumps(self.__dict__)
 
-def get_products(image, threshold=0.01):
+def get_products(image, threshold=0.3):
     image_np = load_image_into_numpy_array(image)
     # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
     image_np_expanded = np.expand_dims(image_np, axis=0)
