@@ -27,7 +27,7 @@ models = oci.object_storage.models
 
 row_labels = json.loads(object_storage.get_object(namespace, 'training', 'row_labels.json').data.content.decode())
 img_id = 1
-      
+
 def add_to_json(split):
     data = {
         "info": {
@@ -51,7 +51,7 @@ def add_to_json(split):
     }
     labels = object_storage.get_object(namespace, split+'_images', 'image_labels.csv').data.content
     df = pd.read_csv(io.BytesIO(labels))
-    
+
     for index, row in df.iterrows():
         image = annotation = categories = {}
         image['coco_url'] = ""
@@ -103,4 +103,5 @@ def main():
         add_to_json(split)
 
 if __name__ == '__main__':
+    img_id = 1
     main()
