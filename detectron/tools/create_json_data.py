@@ -49,7 +49,6 @@ def add_to_json(split):
         "annotations": [],
         "categories": []   
     }
-    writer = tf.python_io.TFRecordWriter('data/'+split+'.record')
     labels = object_storage.get_object(namespace, split+'_images', 'image_labels.csv').data.content
     df = pd.read_csv(io.BytesIO(labels))
     
@@ -79,7 +78,7 @@ def add_to_json(split):
         data['images'].append(image)
         data['annotation'].append(annotation)
         encoded_img = object_storage.get_object(namespace, split+'_images', row['filename']).data.content
-        with open('../lib/datasets/data/target/target_train/' + row['filename']) as f:
+        with open('../lib/datasets/data/target/target_' + split + '/' + row['filename']) as f:
             f.write(encoded_img)
         img_id += 1
     
@@ -89,8 +88,7 @@ def add_to_json(split):
         category['id'] = row_labels[row]
         category['supercategory'] = 'alcohol'
         data['categories'].append(category)
-
-    with open('../lib/datasets/data/target/annotations/target_train.json', 'w') as f:
+    with open('../lib/datasets/data/target/annotations/target_' + split + '/' + '.json', 'wb') as f:
         json.dump(data, f)
     print('Successfully created the %s TFRecord' % (split))
 
@@ -101,7 +99,7 @@ def main():
     except Exception as e: pass"""
     threads = []
     for split in ['train', 'test']:
-        print('Generating %s.record file' % (split))
+        #print('Generating %s.record file' % (split))
         add_to_json(split)
 
 if __name__ == '__main__':
