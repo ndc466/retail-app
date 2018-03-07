@@ -26,6 +26,7 @@ namespace = object_storage.get_namespace().data
 models = oci.object_storage.models
 
 row_labels = json.loads(object_storage.get_object(namespace, 'training', 'row_labels.json').data.content.decode())
+
 img_id = 1
 
 def add_to_json(split):
@@ -97,6 +98,7 @@ def main():
         os.remove('./data/test.record')
         os.remove('./data/train.record')
     except Exception as e: pass"""
+    img_id = 1
     threads = []
     for split in ['train', 'test']:
         #print('Generating %s.record file' % (split))
