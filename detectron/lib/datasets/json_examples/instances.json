@@ -40,7 +40,7 @@
     "categories": [
         {
             "id": 1, 
-            "name": "bicycle", 
+            "name": "bicycle",
             "supercategory": "vehicle"
         }
     ]
