@@ -64,12 +64,12 @@ def add_to_json(split, img_id):
         image['license'] = 1
         image['width'] = row['width']
 
-        annotation['area'] = (row['xmax'] - row['xmin']) * (row['ymax'] - row['ymin'])
+        annotation['area'] = abs(row['xmax'] - row['xmin']) * abs(row['ymax'] - row['ymin'])
         annotation['bbox'] = [
             row['xmin'],
             row['ymin'],
-            row['xmax'] - row['xmin'],
-            row['ymax'] - row['ymin']
+            abs(row['xmax'] - row['xmin']),
+            abs(row['ymax'] - row['ymin'])
         ]
         annotation['category_id'] = row_labels[row['class']]
         annotation['id'] = img_id
