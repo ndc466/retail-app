@@ -64,7 +64,7 @@ def add_to_json(split, img_id):
         image['license'] = 1
         image['width'] = row['width']
 
-        annotation['area'] = row['width'] * row['height']
+        annotation['area'] = (row['xmax'] - row['xmin']) * (row['ymax'] - row['ymin'])
         annotation['bbox'] = [
             row['xmin'],
             row['ymin'],
