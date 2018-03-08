@@ -75,6 +75,7 @@ def add_to_json(split, img_id):
         annotation['id'] = img_id
         annotation['image_id'] = img_id
         annotation['iscrowd'] = 0
+        annotation['segmentation'] = []
 
         data['images'].append(image)
         data['annotations'].append(annotation)
