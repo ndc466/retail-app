@@ -99,10 +99,9 @@ def main():
         os.remove('./data/test.record')
         os.remove('./data/train.record')
     except Exception as e: pass"""
-    threads = []
     img_id = 1
     for split in ['train', 'test']:
-        #print('Generating %s.record file' % (split))
+        print('Generating %s data' % (split))
         img_id = add_to_json(split, img_id)
 
 if __name__ == '__main__':
