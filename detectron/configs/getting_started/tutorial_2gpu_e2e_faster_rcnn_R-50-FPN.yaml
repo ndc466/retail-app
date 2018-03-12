@@ -21,6 +21,7 @@ FAST_RCNN:
   ROI_XFORM_RESOLUTION: 7
   ROI_XFORM_SAMPLING_RATIO: 2
 TRAIN:
+  #
   WEIGHTS: https://s3-us-west-2.amazonaws.com/detectron/ImageNetPretrained/MSRA/R-50.pkl
   DATASETS: ('target_train',)
   SCALES: (500,)
