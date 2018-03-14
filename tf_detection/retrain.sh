@@ -11,11 +11,12 @@ printf "\n\nTraining model on train/test tfrecords\n"
 printf "________________________________________________\n\n"
 python train.py --logtostderr --train_dir=models/model/train --pipeline_config_path=models/model/ssd_mobilenet_v1_coco.config
 
-#printf "\n\nTraining complete, exporting inference graph\n"
-#printf "________________________________________________\n\n"
-#python export_inference_graph.py
+printf "\n\nTraining complete, exporting inference graph\n"
+printf "________________________________________________\n\n"
+python export_inference_graph.py
 
-#printf "\n\nSending frozen_inference_graph to REST server\n"
-#printf "________________________________________________\n\n"
-#scp output_graph/frozen_inference_graph.pb opc@129.146.81.61:~
+printf "\n\nSending frozen_inference_graph to REST server\n"
+printf "________________________________________________\n\n"
+cp output_graph/frozen_inference_graph.pb output_graph/new_graph.pb
+scp output_graph/new_graph.pb opc@129.146.81.61:~
 #scp data/object_detection.pbtxt opc@129.146.81.61:~/retail_app/object_detection/data/
