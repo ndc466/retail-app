@@ -27,7 +27,7 @@ PORT = int(parser.get("ENV", "PORT"))
 app = Flask(__name__)
 app.debug = DEBUG
 app.secret_key = 'super secret key'
-socketio = SocketIO(app, async_mode=async_mode)
+#socketio = SocketIO(app, async_mode=async_mode)
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 #PATH_TO_CKPT = './output_graph/frozen_inference_graph.pb'
@@ -202,5 +202,5 @@ def detection_stream():
 
 
 if __name__ == "__main__":
-    socketio.run(app)
+    #socketio.run(app)
     app.run(host='0.0.0.0', port=8808)
