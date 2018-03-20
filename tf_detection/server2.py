@@ -183,7 +183,7 @@ def detect_upload():
     # image processing
     image = Image.open(file)
     #products = products_api.get_products(image, threshold)
-    products = products_api.get_products(image)
+    products = bb8_api.get_products(image)
     print('\n%s\n%s\n' % (type(products), products))
     return json.dumps(products)
     """return jsonify({
