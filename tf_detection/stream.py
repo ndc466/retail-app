@@ -24,6 +24,8 @@ DEBUG = bool(parser.get("ENV", "DEBUG"))
 HOST = str(parser.get("ENV", "HOST"))
 PORT = int(parser.get("ENV", "PORT"))
 
+async_mode = None
+
 app = Flask(__name__)
 app.debug = DEBUG
 app.secret_key = 'super secret key'
