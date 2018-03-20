@@ -37,7 +37,6 @@ PATH_TO_LABELS = '../../bb8.pbtxt'
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 NUM_CLASSES = len(label_map.ListFields()[0][1])
 print(NUM_CLASSES)
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # ## Load a (frozen) Tensorflow model into memory.
 detection_graph = tf.Graph()
@@ -54,6 +53,7 @@ label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
 category_index = label_map_util.create_category_index(categories)"""
 
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # ## Helper code
 def load_image_into_numpy_array(image):
