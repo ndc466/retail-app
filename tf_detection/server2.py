@@ -32,10 +32,11 @@ app.secret_key = 'super secret key'
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 #PATH_TO_CKPT = './output_graph/frozen_inference_graph.pb'
 #PATH_TO_LABELS = './data/object_detection.pbtxt'
-PATH_TO_CKPT = '../../bb8.pb'
+"""PATH_TO_CKPT = '../../bb8.pb'
 PATH_TO_LABELS = '../../bb8.pbtxt'
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 NUM_CLASSES = len(label_map.ListFields()[0][1])
+print(NUM_CLASSES)
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 # ## Load a (frozen) Tensorflow model into memory.
@@ -51,7 +52,7 @@ with detection_graph.as_default():
 # Label maps map indices to category names, so that when our convolution network predicts `5`, we know that this corresponds to `airplane`.  Here we use internal utility functions, but anything that returns a dictionary mapping integers to appropriate string labels would be fine
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
-category_index = label_map_util.create_category_index(categories)
+category_index = label_map_util.create_category_index(categories)"""
 
 
 # ## Helper code
