@@ -190,7 +190,7 @@ def detect_upload():
         "data": products
     })"""
 
-@socketio.on("detection_stream")
+"""@socketio.on("detection_stream")
 def detection_stream():
     img64 = request.form['image']
     msg = base64.b64decode(img64)
@@ -198,7 +198,7 @@ def detection_stream():
     img = Image.open(buf)
     #img = Image.open(request.form['image'])
     products = products_api.get_products(image)
-    emit('my_response', {'data': json.dumps(products)})
+    emit('my_response', {'data': json.dumps(products)})"""
 
 
 if __name__ == "__main__":
