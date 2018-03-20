@@ -193,17 +193,29 @@ def detect_upload():
         "data": products
     })"""
 
-@socketio.on("detection_stream")
+@socketio.on('connect', namespace='/stream')
+def test_connect():
+    #global thread
+    #with thread_lock:
+    #    if thread is None:
+    #        thread = socketio.start_background_task(target=background_thread)
+    emit('my_response', {'data': 'Connected', 'count': 0})
+
+@socketio.on("detection_stream", namespace='/stream')
 def detection_stream():
-    img64 = request.form['image']
-    msg = base64.b64decode(img64)
+    #img64 = request.form['image']
+    buf = message['data']
+    print(type(buf))
+    print(buf)
+    emit('my_response', {'data': buf})
+    """msg = base64.b64decode(img64)
     buf = io.BytesIO(msg)
     img = Image.open(buf)
     #img = Image.open(request.form['image'])
     products = products_api.get_products(image)
-    emit('my_response', {'data': json.dumps(products)})
+    emit('my_response', {'data': json.dumps(products)})"""
 
 
 if __name__ == "__main__":
     #socketio.run(app)
-    app.run(host='0.0.0.0', port=8808)
+    app.run(host='0.0.0.0', port=8008)
