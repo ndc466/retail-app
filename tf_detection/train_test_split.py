@@ -97,20 +97,38 @@ def main():
     ## multithreading
     print('Writing %s objects to "train_images" bucket ...' % (len(train)))
     threads = []
-    for img_file in train['filename']:
-        thread = threading.Thread(target=transfer_to_bucket, args=('train_images', img_file,))
-        threads.append(thread)
-        thread.start()
-    for thread in threads:
-        thread.join()  
-    threads = []   
+    count = 0
+    max_count = 500
+    while True:
+        for img_file in train['filename'][count:max_count-count]:
+            thread = threading.Thread(target=transfer_to_bucket, args=('train_images', img_file,))
+            threads.append(thread)
+            thread.start()
+        for thread in threads:
+            thread.join()
+        count += 500
+        max_count = len(train['filename']) if len(train['filename']) < (max_count+500) else (max_count + 500)
+        if len(train['filename']) < (max_count+500):
+            max_count = len(train['filename'])
+        threads = []
+        if count > len(train['filename']): break
+
     print('Writing %s objects to "test_images" bucket ...' % (len(test)))
-    for img_file in test['filename']:
-        thread = threading.Thread(target=transfer_to_bucket, args=('test_images', img_file,))
-        threads.append(thread)
-        thread.start()      
-    for thread in threads:
-        thread.join()
+    count = 0
+    max_count = 500
+    while True:
+        for img_file in test['filename'][count:max_count-count]:
+            thread = threading.Thread(target=transfer_to_bucket, args=('test_images', img_file,))
+            threads.append(thread)
+            thread.start()      
+        for thread in threads:
+            thread.join()
+        count += 500
+        max_count = len(test['filename']) if len(test['filename']) < (max_count+500) else (max_count + 500)
+        if len(train['filename']) < (max_count+500):
+            max_count = len(train['filename'])
+        threads = []
+        if count > len(test['filename']): break
 
 if __name__ == '__main__':
     main()
