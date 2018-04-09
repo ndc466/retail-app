@@ -50,7 +50,7 @@ def main():
     for i, labels in enumerate(objects):
         # Pull the csv from object storage
         obj = object_storage.get_object(namespace, 'image_labels', labels).data.content
-        df = df.append(pd.read_csv(io.BytesIO(obj)))
+        df = df.append(pd.read_csv(io.BytesIO(obj)), ignore_index=True)
         # Add object name to labels dict for config files
         obj_name = labels.replace('_labels.csv', '')
         
@@ -88,7 +88,7 @@ def main():
 
     # Write the corresponding image files to the Train and Test buckets
     print('Writing %s objects to "train_images" bucket ...' % (len(train)))
-    for img_file in train['filename']:
+    for img_file in train['filename']: 
         transfer_to_bucket('train_images', img_file)
     print('Writing %s objects to "test_images" bucket ...' % (len(test)))
     for img_file in test['filename']:
