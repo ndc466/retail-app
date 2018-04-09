@@ -39,7 +39,7 @@ def transfer_to_bucket(bucket, img_file):
             #print(e)
             if printed is False:
                 printed = True
-                print e
+                print(e)
             print('.', sep='', end='', flush=True)
 
 def main():
